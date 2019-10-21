@@ -37,7 +37,7 @@
 				<span class="formName">ID</span>
 				<input type="text" name="id" class="whiteBox">
 			</p>
-			<p class="row>
+			<p class="row">
 				<span class="formName">PW</span>
 				<input type="password" name="pw" class="whiteBox">
 			</p>
