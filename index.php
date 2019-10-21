@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>リアルタイムチャット</title>
+	<link rel="stylesheet" type="text/css" href="ress.css">
 	<link rel="stylesheet" type="text/css" href="index.css">
 
     <?php
@@ -21,7 +22,7 @@
 	            )
                 // 実行する処理
             );
-	}    catch(PDOException $e) {
+		} catch(PDOException $e) {
 	        // エラー時の処理
 	        $error = $e->getMessage();
 	    }
