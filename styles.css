@@ -21,7 +21,7 @@
 	display: flex;
 	justify-content: space-around;
 }
-.loginWindow.row{
+.loginWindow .row{
 	margin-bottom:.5em;
 }
 .formName{
