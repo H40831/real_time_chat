@@ -36,8 +36,8 @@
 	background-color: #fff;
 	opacity: .9;
 	background: linear-gradient(#ffffff,#fdfdfd);
-	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1em;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 1em;
 }
 input.whiteBox:focus{
-	box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 1em;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1em;
 }
