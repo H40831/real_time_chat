@@ -33,15 +33,17 @@
 
 	<section class="loginWindow shadow">
 		<form method="post" action="index.php">
-			<p class="row">
-				<span class="formName">ID</span>
-				<input type="text" name="id" class="whiteBox">
-			</p>
-			<p class="row">
-				<span class="formName">PW</span>
-				<input type="password" name="pw" class="whiteBox">
-			</p>
-			<input class="whiteBox" type="submit" name="login" value="ログイン">
+			<div class="yCenter">
+				<p class="row">
+					<span class="formName">ID</span>
+					<input type="text" name="id" class="whiteBox">
+				</p>
+				<p class="row">
+					<span class="formName">PW</span>
+					<input type="password" name="pw" class="whiteBox">
+				</p>
+				<input class="whiteBox" type="submit" name="login" value="ログイン">
+			</div>
 		</form>
 	</section>
 
