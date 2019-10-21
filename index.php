@@ -33,15 +33,21 @@
 
 	<section class="loginWindow shadow">
 		<form method="post" action="index.php">
-			<input type="text" name="id" class="shadow">
-			<input type="password" name="pw" class="shadow">
+			<p>
+				<small>ID</small>
+				<input type="text" name="id" class="whiteBox">
+			</p>
+			<p>
+				<small>PW</small>
+				<input type="password" name="pw" class="whiteBox">
+			</p>
 			<input type="submit" name="login" value="ログイン">
 		</form>
 	</section>
 
 	<section class="chatRoom">
 		<form method="post" action="index.php">
-		    <textarea name="message"></textarea>
+		    <textarea name="message" class="whiteBox"></textarea>
 		    <button type="submit" name="sendMessage">発言</button>
 		</form>
 

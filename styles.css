@@ -2,25 +2,31 @@
 	transition: .2s;
 }
 
+.hide{
+	opacity: 0;
+}
+
 .loginWindow:before{
 	background-color: rgba(0,0,0,0.3);
 }
 .loginWindow{
-	background-color: #ccc;
+	background-color: #efefef;
+	position: absolute;
+	top: 50vh;
+	left: 50vw;
+	transform: translate(-50);
+	border-radius: 3px;
 }
 
-input{
+.whiteBox{
 	border-radius: 3px;
 	outline: none;
 	padding: .25em;
 	background-color: #fff;
 	opacity: .9;
+	background: linear-gradient(#efefef,#eeeeee);
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1em;
 }
-
-.shadow{
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1em;
-}
-
-input.shadow:focus{
+input.whiteBox:focus{
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 1em;
 }
