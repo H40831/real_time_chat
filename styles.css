@@ -10,11 +10,13 @@
 	background-color: rgba(0,0,0,0.3);
 }
 .loginWindow{
-	background-color: #efefef;
+	width: 50vw;
+	height: 50vh;
+	background: linear-gradient(#efefef,#eeeeee);
 	position: absolute;
-	top: 50vh;
-	left: 50vw;
-	transform: translate(-50);
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
 	border-radius: 3px;
 }
 
@@ -24,7 +26,7 @@
 	padding: .25em;
 	background-color: #fff;
 	opacity: .9;
-	background: linear-gradient(#efefef,#eeeeee);
+	background: linear-gradient(#ffffff,#efefef);
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1em;
 }
 input.whiteBox:focus{
