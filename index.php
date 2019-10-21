@@ -32,7 +32,7 @@
 <body>
 
 	<section class="loginWindow shadow">
-		<form>
+		<form method="post" action="index.php">
 			<input type="text" name="id" class="shadow">
 			<input type="password" name="pw" class="shadow">
 			<input type="submit" name="login" value="ログイン">
