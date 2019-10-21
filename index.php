@@ -31,7 +31,7 @@
 </head>
 <body>
 
-	<section class="loginWindow">
+	<section class="loginWindow shadow">
 		<form>
 			<input type="text" name="id" class="shadow">
 			<input type="password" name="pw" class="shadow">

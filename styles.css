@@ -13,6 +13,8 @@ input{
 	border-radius: 3px;
 	outline: none;
 	padding: .25em;
+	background-color: #fff;
+	opacity: .9;
 }
 
 .shadow{
