@@ -33,15 +33,15 @@
 
 	<section class="loginWindow shadow">
 		<form method="post" action="index.php">
-			<p>
-				<small>ID</small>
+			<p class="row">
+				<span class="formName">ID</span>
 				<input type="text" name="id" class="whiteBox">
 			</p>
-			<p>
-				<small>PW</small>
+			<p class="row>
+				<span class="formName">PW</span>
 				<input type="password" name="pw" class="whiteBox">
 			</p>
-			<input type="submit" name="login" value="ログイン">
+			<input class="whiteBox" type="submit" name="login" value="ログイン">
 		</form>
 	</section>
 

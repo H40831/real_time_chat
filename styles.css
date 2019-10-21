@@ -18,15 +18,24 @@
 	left: 50%;
 	transform: translate(-50%,-50%);
 	border-radius: 3px;
+	display: flex;
+	justify-content: space-around;
 }
-
+.loginWindow.row{
+	margin-bottom:.5em;
+}
+.formName{
+	display: inline-block;
+	width: 2em;
+	text-align: right;
+}
 .whiteBox{
 	border-radius: 3px;
 	outline: none;
 	padding: .25em;
 	background-color: #fff;
 	opacity: .9;
-	background: linear-gradient(#ffffff,#efefef);
+	background: linear-gradient(#ffffff,#fdfdfd);
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1em;
 }
 input.whiteBox:focus{
