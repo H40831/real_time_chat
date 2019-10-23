@@ -28,7 +28,7 @@ input.shadow:focus{
 	width: 50vw;
 	height: 50vh;
 	background: linear-gradient(#efefef,#eeeeee);
-	border-radius: 3px;
+	border-radius: .75em;
 	display: flex;
 	justify-content: space-around;
 	text-align: center;
@@ -44,7 +44,7 @@ input.shadow:focus{
     margin-right: .8em;
 }
 .whiteBox{
-	border-radius: 3px;
+	border-radius: .75em;
 	outline: none;
 	padding: .25em;
 	background-color: #fff;
@@ -61,6 +61,7 @@ input[type="submit"].whiteBox{
 }
 .bubble{
 	display: inline-block;
-	border-radius: 5px;
+	border-radius: .75em;
+	padding: .75em;
 	background-color: #bbb;
 }
