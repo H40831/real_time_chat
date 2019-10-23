@@ -31,9 +31,9 @@
 </head>
 <body>
 
-	<section class="loginWindow shadow">
+	<section class="loginWindow center shadow">
 		<form method="post" action="index.php">
-			<div class="yCenter">
+			<div class="center">
 				<p class="row">
 					<span class="formName">ID</span>
 					<input type="text" name="id" class="whiteBox">
