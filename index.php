@@ -31,7 +31,7 @@
 </head>
 <body>
 
-	<section class="loginWindow center shadow">
+	<section id="loginWindow" class="center shadow">
 		<form method="post" action="index.php">
 			<div class="center">
 				<p class="row">
@@ -42,7 +42,7 @@
 					<span class="formName">PW</span>
 					<input class="whiteBox shadow" type="password" name="pw">
 				</p>
-				<input class="whiteBox shadow" type="submit" name="login" value="ログイン">
+				<input id="loginButton" class="whiteBox shadow" type="submit" name="login" value="ログイン">
 			</div>
 		</form>
 	</section>

@@ -21,10 +21,11 @@ input.shadow:focus{
 
 
 /*個別スタイル*/
-.loginWindow:before{
+#loginWindow:before{
+	content: '';
 	background-color: rgba(0,0,0,0.3);
 }
-.loginWindow{
+#loginWindow{
 	width: 50vw;
 	height: 50vh;
 	background: linear-gradient(#efefef,#eeeeee);
@@ -32,9 +33,13 @@ input.shadow:focus{
 	display: flex;
 	justify-content: space-around;
 	text-align: center;
+	min-width: 300px;
 }
-.loginWindow .row{
+#loginWindow .row{
 	margin-bottom: .5em;
+}
+#loginButton{
+	margin-top: 1.5em;
 }
 .formName{
 	display: inline-block;
