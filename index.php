@@ -57,8 +57,8 @@
 	        $test = $db->prepare('SELECT user_name FROM users;');
 	        $test->execute();
 	        $test_arr = $test->fetch();
-	        echo $test_arr[0].': ';
-		    echo $_POST['message'];
+	        echo '<p class="talker">'.$test_arr[0].': '.'</p>';
+		    echo '<p class="bubble">'.$_POST['message'].'</p>';
 		?>
 
 	</section>

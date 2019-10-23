@@ -52,3 +52,13 @@ input[type="submit"].whiteBox{
 input.whiteBox:focus{
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 1em;
 }
+
+.talker{
+	display: inline;
+	font-size: .75em;
+}
+.bubble{
+	display: inline-block;
+	border-radius: 5px;
+	background-color: lime;
+}
