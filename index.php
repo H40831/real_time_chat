@@ -36,11 +36,11 @@
 			<div class="center">
 				<p class="row">
 					<span class="formName">ID</span>
-					<input type="text" name="id" class="whiteBox">
+					<input type="text" name="id" class="whiteBox shadow">
 				</p>
 				<p class="row">
 					<span class="formName">PW</span>
-					<input type="password" name="pw" class="whiteBox">
+					<input type="password" name="pw" class="whiteBox shadow">
 				</p>
 				<input class="whiteBox" type="submit" name="login" value="ログイン">
 			</div>

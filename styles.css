@@ -15,6 +15,9 @@
 .shadow{
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1em;
 }
+input.shadow:focus{
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 1em;
+}
 
 
 /*個別スタイル*/
@@ -50,9 +53,6 @@
 }
 input[type="submit"].whiteBox{
 	font-size: .8em;
-}
-input.whiteBox:focus{
-	box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 1em;
 }
 
 .talker{
