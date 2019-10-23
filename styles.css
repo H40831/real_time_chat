@@ -1,7 +1,7 @@
+/*汎用スタイル*/
 *{
 	transition: .2s;
 }
-
 .hide{
 	opacity: 0;
 }
@@ -12,7 +12,12 @@
 	left: 50%;
 	transform: translate(-50%,-50%);	
 }
+.shadow{
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1em;
+}
 
+
+/*個別スタイル*/
 .loginWindow:before{
 	background-color: rgba(0,0,0,0.3);
 }
@@ -42,7 +47,6 @@
 	background-color: #fff;
 	opacity: .9;
 	background: linear-gradient(#ffffff,#fdfdfd);
-	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1em;
 }
 input[type="submit"].whiteBox{
 	font-size: .8em;
@@ -58,5 +62,5 @@ input.whiteBox:focus{
 .bubble{
 	display: inline-block;
 	border-radius: 5px;
-	background-color: limez;
+	background-color: #bbb;
 }
