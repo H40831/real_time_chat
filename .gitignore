@@ -2,3 +2,4 @@
 /.env.example
 /composer.lock
 /vendor
+/README.md
