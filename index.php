@@ -1,3 +1,6 @@
+<?php
+    	require __DIR__.'/logic.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,10 +8,6 @@
 	<title>リアルタイムチャット</title>
 	<link rel="stylesheet" type="text/css" href="ress.css">
 	<link rel="stylesheet" type="text/css" href="styles.css">
-
-    <?php
-    	require __DIR__.'/logic.php';
-	?>
 
 </head>
 <body>
@@ -32,20 +31,20 @@
 	<section class="chatRoom">
 		<form method="post" action="index.php">
 		    <textarea name="message" class="whiteBox shadow"></textarea>
-		    <!-- ↓buttonじゃなくてinputタグに直す！ -->
+		    //↓buttonじゃなくてinputタグに直す！
 		    <button type="submit" name="sendMessage">発言</button>
 		</form>
 
-	    /*
 	    <?php
+	    /*
 	    	$test = $db->prepare('SELECT user_name FROM users;');
 	    	$test->execute();
 	        $test_arr = $test->fetch();
 
 	        echo '<p class="talker">'.$test_arr[0].': '.'</p>';
 		    echo '<p class="bubble">'.$_POST['message'].'</p>';
-		?>
 		*/
+		?>
 
 	</section>
 
