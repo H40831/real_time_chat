@@ -21,13 +21,15 @@ try {
     $error = $e->getMessage();
 }
 
-$_['message']　= NULL;
+$_['message'] = NULL;
 
 $speech = function() {
 	if( $_['message'] !== NULL ){
+		/*
 		$query = $db->prepare('INSERT talk_logs VALUE(NULL, ?, NOW(), $_POST['user_id'], $_POST['room_id'])');
 		$query->bindParam(1, $_POST['message']);
 		$query->execute();
 		$_['message'] = NULL;
+		*/
 	}
 };
