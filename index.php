@@ -1,5 +1,5 @@
 <?php
-    	require __DIR__.'/logic.php';
+	require __DIR__.'/logic.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,7 +31,7 @@
 	<section class="chatRoom">
 		<form method="post" action="index.php">
 		    <textarea name="message" class="whiteBox shadow"></textarea>
-		    //↓buttonじゃなくてinputタグに直す！
+		    <!-- ↓buttonじゃなくてinputタグに直す！ -->
 		    <button type="submit" name="sendMessage">発言</button>
 		</form>
 

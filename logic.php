@@ -21,7 +21,7 @@ try {
     $error = $e->getMessage();
 }
 
-//$_['message']　= NULL;
+$_['message']　= NULL;
 
 $speech = function() {
 	if( $_['message'] !== NULL ){
