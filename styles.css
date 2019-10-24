@@ -15,7 +15,8 @@
 .shadow{
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1em;
 }
-input.shadow:focus{
+input.shadow:focus,
+textarea.shadow:focus{
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 1em;
 }
 
@@ -28,6 +29,7 @@ input.shadow:focus{
 #loginWindow{
 	width: 50vw;
 	height: 50vh;
+    border: solid 2px #ffffff;
 	background: linear-gradient(#efefef,#eeeeee);
 	border-radius: .75em;
 	display: flex;
@@ -55,6 +57,7 @@ input.shadow:focus{
 	background-color: #fff;
 	opacity: .9;
 	background: linear-gradient(#ffffff,#fdfdfd);
+    border: 1px solid #ddd;
 }
 input[type="submit"].whiteBox{
 	font-size: .8em;
