@@ -36,7 +36,7 @@
 		    <button type="submit" name="sendMessage">発言</button>
 		</form>
 
-	    <!-- 
+	    /*
 	    <?php
 	    	$test = $db->prepare('SELECT user_name FROM users;');
 	    	$test->execute();
@@ -45,7 +45,7 @@
 	        echo '<p class="talker">'.$test_arr[0].': '.'</p>';
 		    echo '<p class="bubble">'.$_POST['message'].'</p>';
 		?>
-		 -->
+		*/
 
 	</section>
 
