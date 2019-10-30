@@ -23,7 +23,7 @@ OS: Mac OSX<br>
 - セキュリティ
 - サーバー環境構築 (WEBサーバーアプリケーションの導入 / SSH接続 / Linuxコマンド 他)
 - データベースの構築、設計 / ER図作成
-- 非同期通信 (Ajax)
+- 非同期通信 (Ajax / Fetch API)
 - 双方向通信 (WebSocket)
 - Git
 - Vim
