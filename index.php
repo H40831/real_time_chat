@@ -35,7 +35,7 @@
 	<section class="chatRoom">
 		<form method="post" action="index.php">
 		    <textarea name="message" class="whiteBox shadow"></textarea>
-		    <!-- ↓buttonじゃなくてinputタグに直す！ -->
+		    <!-- ↓buttonじゃなくてinputタグに直す？ -->
 		    <button type="submit" name="sendMessage" class="whiteBox button">発言</button>
 		</form>
 
