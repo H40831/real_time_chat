@@ -1,7 +1,7 @@
 /***** 共通スタイル *****/
 *{
 	transition: .2s;
-	opacity: .97;
+	opacity: .95;
 }
 small{
 	font-size: .5em;
@@ -30,7 +30,6 @@ small{
 	outline: none;
 	padding: .25em .5em;
 	background-color: #fff;
-	opacity: .9;
 	background: linear-gradient(#ffffff,#fdfdfd);
     border: 1px solid #ddd;
 }
@@ -64,8 +63,19 @@ small{
 	font-size: .5em;
     margin-right: .8em;
 }
-#id{
+#pw{
 	position: relative;
+}
+#showPwButton{
+	transition: right 0s;
+	position: absolute;
+	outline: none;
+	right: 0;
+	height: calc(2em + 2px);
+	padding: .25em .5em;
+}
+#showPwButton.fa-eye{
+	right: 1px;
 }
 
 .talker{

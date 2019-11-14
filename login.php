@@ -1,50 +1,47 @@
 <?php
 
 ini_set('display_errors', 1);
-#error_reporting(-1);
+error_reporting(-1);
 
 require_once __DIR__."/db_access.php";
 
-header('Content-Type: application/json');
-$inputId = $_POST['id'];
-$inputPw = $_POST['pw'];
-
-if($_POST['loginOrSignup']==="signup"){
-	$signupFlag = true;
-}else{
-	$signupFlag = false;
-}
-
-$response = [];
-
 class Authentication extends MySql {
+	private $inputId = $_POST['id'];
+	private $inputPw = $_POST['pw'];
+	private $signupFlag = $_POST['loginOrSignup']==="signup"; 
+	private $response = [];
+
+	public function __construct() {
+    	parent::__construct();
+    	
+	}
+
 	public function login() {
-		$userInfo = $this->sql(
+		$this->userInfo = $this->sql(
 			'SELECT * FROM users WHERE login_id = :inputId;',
-			':inputId',$inputId
+			':inputId',$this->inputId
 		);
 
-
-		if( password_verify($inputPw, $userInfo['login_pw']) ){
+		if( password_verify($this->inputPw, $this->userInfo['login_pw']) ){
 	        #ログイン成功 #成功時の処理書く
-	        $response['pattern1'] = 'ログインしました';
+	        $this->response['pattern1'] = 'ログインしました';
 
 	    }else{
-	    	$response['pattern2'] = 'パスワードが一致しません';
+	    	$this->response['pattern2'] = 'パスワードが一致しません';
 	    } 
 	}
 
 	public function signup() { #クラス化に対応してなかったので、要修正！
-		$signupData = $this->sql(
+		$this->signupData = $this->sql(
 			'INSERT users(login_id,login_pw) VALUES(:inputId,:inputPw);',
-			':inputId',$inputId,
-			':inputPw',$inputPw
+			':inputId',$this->inputId,
+			':inputPw',$this->inputPw
 		); #このままだとIDが重複していた際に、どのようなエラー文が返ってくるのか不明なので怖い。
-		$response['pattern3'] = '新規登録しました';
+		
+		$this->response['pattern3'] = '新規登録しました';
 
 		login();
 	}
-
 }
 
 $auth = new Authentication();

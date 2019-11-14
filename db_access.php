@@ -21,10 +21,10 @@ class MySql { #元ネタ→ https://www.geek.sc/archives/458
 
     public function query($sql){
         try{
-            $db = new PDO ($this->dsn, $this->id, $this->pw, $this->option);
-            $sql = $db->query($sql);
-            $data = $sql->fetchAll(PDO::FETCH_ASSOC); #クエリ結果を連想配列で取得して、
-            return $data; #それを返り値にする。
+            $this->db = new PDO ($this->dsn, $this->id, $this->pw, $this->option);
+            $this->sql = $this->db->query($sql);
+            $this->data = $this->sql->fetchAll(PDO::FETCH_ASSOC); #クエリ結果を連想配列で取得して、
+            return $this->data; #それを返り値にする。
 
         } catch (PDOException $err) {
             echo 'DB Connection failed:'.$err->getMessage();
@@ -38,22 +38,22 @@ class MySql { #元ネタ→ https://www.geek.sc/archives/458
     *奇数番目の引数: プレースホルダにバインドする値
     */
     public function prepare($sql,...$prepares){
-        $preparesCount = count($prepares);
+        $this->preparesCount = count($prepares);
 
-        if ( $preparesCount % 2 !== 0 ){ #可変長引数 $prepares の数が偶数じゃなかった場合、エラーを出す。 
+        if ( $this->preparesCount % 2 !== 0 ){ #可変長引数 $prepares の数が偶数じゃなかった場合、エラーを出す。 
             trigger_error( "Fatal Error: prepare() の引数は、必ず奇数個になります。第二引数以降を、プレースホルダとバインド値をセットで記入してください。", E_USER_ERROR );
         }#ここってもしかして、例外を投げたほうがいいかも。
 
         try{
-            $db = new PDO ($this->dsn, $this->id, $this->pw, $this->option);
+            $this->db = new PDO ($this->dsn, $this->id, $this->pw, $this->option);
 
-            $sql = $db->prepare($sql);
-            for ($i = 1; $i <= $preparesCount; $i+=2) { #可変長引数 $prepares の数の1/2回分ループする。
-                $sql->bindValue($prepares[i],$prepares[i+1]); #奇数番目の引数をプレースホルダとし、偶数番目の引数をバインド値とする。
+            $this->sql = $this->db->prepare($sql);
+            for ($i = 1; $i <= $this->preparesCount; $i+=2) { #可変長引数 $prepares の数の1/2回分ループする。
+                $this->sql->bindValue($prepares[i],$prepares[i+1]); #奇数番目の引数をプレースホルダとし、偶数番目の引数をバインド値とする。
             }
-            $sql->execute();
+            $this->sql->execute();
 
-            return $sql->fetchAll(PDO::FETCH_ASSOC); #クエリ結果を連想配列で取得して、それを返り値にする。
+            return $this->sql->fetchAll(PDO::FETCH_ASSOC); #クエリ結果を連想配列で取得して、それを返り値にする。
 
         } catch (PDOException $err) {
             echo 'DB Connection failed:'.$err->getMessage();
@@ -62,8 +62,8 @@ class MySql { #元ネタ→ https://www.geek.sc/archives/458
     }
 
     public function sql($sql,...$prepares) { 
-        $preparesCount = count($prepares);
-        if( $preparesCount >= 1 ) {
+        $this->preparesCount = count($prepares);
+        if( $this->preparesCount >= 1 ) {
             $this->query($sql); # 引数が1つ未満 (=プレースホルダが無い) なら、query() を実行。
         } else {
             $this->pdo($sql,...$prepares); # 引数が多数 (=プレースホルダが有る) なら、prepare() を実行。

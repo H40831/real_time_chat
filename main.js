@@ -3,13 +3,29 @@ const loginFormData = ()=> new FormData(loginForm);
 
 const loginButton = document.getElementById('loginButton');
 const signupButton = document.getElementById('signupButton');
+const pwForm = document.getElementById('pw');
+const showPwButton = document.getElementById('showPwButton');
+
+let showPw = false;
+const ToggleShowPwForm = ()=>{
+	showPw ? pwForm.type = 'text' : pwForm.type = 'password' ;
+}
+const ToggleShowPwIcon = ()=>{
+	showPw ? showPwButton.className = "far fa-eye" : showPwButton.className = "far fa-eye-slash" ;
+}
+showPwButton.onclick = ()=>{
+	showPw = !showPw;
+	ToggleShowPwIcon();
+	ToggleShowPwForm();
+	return false;
+}
 
 const loginFormSubmit = ( loginOrSignup )=> {//loginOrSignup: 関数呼出の際、文字列で'login'か'signup'かを明示する。
 	const method = 'post';
 	const body = loginFormData();
 	body.append("loginOrSignup",loginOrSignup);//"loginOrSignup"はPHPとの共通文なので、名前を変えるとき注意。
 
-	//console.log(...loginFormData().entries());//値チェック
+	console.log(...loginFormData().entries());//値チェック
 
 	fetch('login.php',{
 		method,

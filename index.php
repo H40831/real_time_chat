@@ -8,7 +8,7 @@
 	<title>リアルタイムチャット</title>
 	<link rel="stylesheet" type="text/css" href="ress.css">
 	<link rel="stylesheet" type="text/css" href="styles.css">
-	<!-- Google Material Icons --> <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- Font Awesome --> <script src="https://kit.fontawesome.com/2d2bcba3f8.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -22,6 +22,7 @@
 				<p class="row">
 					<span class="formName">PW</span>
 					<input id="pw" name="pw" class="whiteBox shadow" type="password">
+					<button id="showPwButton" class="far fa-eye-slash"></button>
 				</p>
 
 			</form>
