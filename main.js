@@ -19,6 +19,7 @@ showPwButton.onclick = ()=>{
 	ToggleShowPwForm();
 	return false;
 }
+//そのうちやる: pwFormでENTER押されたときに loginButton.onclick(); 発動するといいかも。
 
 const loginFormSubmit = ( loginOrSignup )=> {//loginOrSignup: 関数呼出の際、文字列で'login'か'signup'かを明示する。
 	const method = 'post';
