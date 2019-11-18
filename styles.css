@@ -39,10 +39,6 @@ small{
 
 
 /***** 個別スタイル *****/
-#loginWindow:before{
-	content: '';
-	background-color: rgba(0,0,0,0.3);
-}
 #loginWindow{
 	width: 50vw;
 	height: 50vh;
@@ -76,6 +72,11 @@ small{
 }
 #showPwButton.fa-eye{
 	right: 1px;
+}
+#loginFormMessage{
+	color: red;
+    vertical-align: text-top;
+    line-height: 1;
 }
 
 .talker{

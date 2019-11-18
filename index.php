@@ -14,7 +14,7 @@
 
 	<section id="loginWindow" class="center shadow nonActive">
 		<div class="center">
-			<form method="post" id="loginForm">
+			<form id="loginForm">
 				<p class="row">
 					<span class="formName">ID</span>
 					<input id="id" name="id" class="whiteBox shadow" type="text">
@@ -22,10 +22,11 @@
 				<p class="row">
 					<span class="formName">PW</span>
 					<input id="pw" name="pw" class="whiteBox shadow" type="password">
-					<button id="showPwButton" class="far fa-eye-slash"></button>
+					<button id="showPwButton" class="far fa-eye-slash" type="button" tabindex="-1"></button>
 				</p>
 
 			</form>
+			<small  id="loginFormMessage"></small><br>
 			<p class="row">
 				<button id="loginButton" class="whiteBox shadow button">ログイン</button>
 				<button id="signupButton" class="whiteBox shadow button">新規登録</button>

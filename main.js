@@ -5,6 +5,7 @@ const loginButton = document.getElementById('loginButton');
 const signupButton = document.getElementById('signupButton');
 const pwForm = document.getElementById('pw');
 const showPwButton = document.getElementById('showPwButton');
+const loginFormMessage = document.getElementById('loginFormMessage');
 
 let showPw = false;
 const ToggleShowPwForm = ()=>{
@@ -26,7 +27,7 @@ const loginFormSubmit = ( loginOrSignup )=> {//loginOrSignup: 関数呼出の際
 	const body = loginFormData();
 	body.append("loginOrSignup",loginOrSignup);//"loginOrSignup"はPHPとの共通文なので、名前を変えるとき注意。
 
-	console.log(...loginFormData().entries());//値チェック
+	//console.log(...loginFormData().entries());//送信値チェック
 
 	fetch('login.php',{
 		method,
@@ -39,9 +40,8 @@ const loginFormSubmit = ( loginOrSignup )=> {//loginOrSignup: 関数呼出の際
 
 loginButton.onclick = ()=> {
 	loginFormSubmit( 'login' );
+
 };
 signupButton.onclick = ()=> {
 	loginFormSubmit( 'signup' );
 };
-
-//次やる: ログインボタン押下したときにでる、SyntaxError: Unexpected token D in JSON at position 0　の対処
