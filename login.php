@@ -25,7 +25,7 @@ class Authentication extends MySql {
 
 	private function isInputEmpty(){
 		if( empty($this->inputId) || empty($this->inputPw) ){
-			$this->result[] = '空欄があります';
+			$this->result[] = 1;#フォームに空欄がある
 			return true;
 		}
 	}
@@ -40,16 +40,15 @@ class Authentication extends MySql {
 			':inputId',$this->inputId
 		);
 		if( empty($this->userInfo) ){
-			$this->result[] = '一致するIDが存在しません';
+			$this->result[] = 2;#該当IDなし
 			return;
 		};
 
 		if( password_verify($this->inputPw, $this->userInfo[0]['login_pw']) ){
-	        #ログイン成功 #成功時の処理書く
-	        $this->result[] = 'ログインしました';
+	        $this->result[] = 3;#ログイン成功
 
 	    }else{
-	    	$this->result[] = 'パスワードが一致しません';
+	    	$this->result[] = 4;#パスワード不一致
 	    } 
 	}
 
@@ -63,7 +62,7 @@ class Authentication extends MySql {
 			':inputId',$this->inputId
 		);
 		if( !empty($this->userInfo) ){ # inputIdに対するuserInfoが存在する場合、ID重複のためsignup()を中断する。
-			$this->result[] = 'IDが重複してます';
+			$this->result[] = 5;#ID重複
 			return;
 		};
 
@@ -73,7 +72,7 @@ class Authentication extends MySql {
 			':inputPw',password_hash($this->inputPw, PASSWORD_BCRYPT)
 		);
 		
-		$this->result[] = '新規登録しました';
+		$this->result[] = 6;#登録完了
 
 		$this->login();
 	}

@@ -5,7 +5,6 @@ const loginButton = document.getElementById('loginButton');
 const signupButton = document.getElementById('signupButton');
 const pwForm = document.getElementById('pw');
 const showPwButton = document.getElementById('showPwButton');
-const loginFormMessage = document.getElementById('loginFormMessage');
 
 let showPw = false;
 const ToggleShowPwForm = ()=>{
@@ -20,8 +19,8 @@ showPwButton.onclick = ()=>{
 	ToggleShowPwForm();
 	return false;
 }
-//そのうちやる: pwFormでENTER押されたときに loginButton.onclick(); 発動するといいかも。
 
+//let loginResult = 0;
 const loginFormSubmit = ( loginOrSignup )=> {//loginOrSignup: 関数呼出の際、文字列で'login'か'signup'かを明示する。
 	const method = 'post';
 	const body = loginFormData();
@@ -34,13 +33,46 @@ const loginFormSubmit = ( loginOrSignup )=> {//loginOrSignup: 関数呼出の際
 		body
 	})
 	.then( response=> response.json() )
-	.then( responseData=> { console.log(responseData) } )
-	.catch( error=> { console.log(error) } );
+	.then( responseData=> responseData[0] )
+	.then( loginResult=>{ setLoginFormMessage(loginResult); } )
+	.catch( error=>{ setLoginFormMessage(error) } );
+}
+
+
+const setLoginFormMessage = (loginResult)=>{
+	console.log(loginResult);
+	const message = document.getElementById('loginFormMessage');
+	switch( loginResult ){
+		case 0:
+			message.innerText = '※ ログイン処理が実行されませんでした。';
+			break;
+		case 1:
+			message.innerText = '※ 入力されていない欄があります。';
+			break;
+		case 2:
+			message.innerText = '※ 一致するIDが存在しません。';
+			break;
+		case 3:
+			message.innerText = '※ ログインしました。';
+			break;
+		case 4:
+			message.innerText = '※ パスワードが一致しません。';
+			break;
+		case 5:
+			message.innerText = '※ このIDは既に使用されています。';
+			break;
+		case 6:
+			message.innerText = '※ 新規登録しました。';
+			break;
+		default:
+			message.innerText = loginResult;
+			break;
+
+	}
 }
 
 loginButton.onclick = ()=> {
 	loginFormSubmit( 'login' );
-
 };
 signupButton.onclick = ()=> {
 	loginFormSubmit( 'signup' );

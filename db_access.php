@@ -68,21 +68,3 @@ class MySql { #元ネタ→ https://www.geek.sc/archives/458
         }
     }
 };
-
-/**
-*PDOをクラス化する前の、動作確認済のコードを残しておく。
-*
-try {
-    $db = new PDO(
-        'mysql:host=my-rds.c7rekwisb6xy.ap-northeast-1.rds.amazonaws.com;dbname=real_time_chat;charset=utf8mb4',
-        $_ENV['DB_ID'],
-        $_ENV['DB_PW'],
-        array(
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_EMULATE_PREPARES => false,
-        )
-    );
-} catch(PDOException $e) {
-    $error = $e->getMessage();
-}
-*/
