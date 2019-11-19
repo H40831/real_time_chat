@@ -1,7 +1,6 @@
 <?php
-	phpinfo();
-	require_once __DIR__.'/main.php';
 	session_start();
+	require_once __DIR__.'/main.php';
 	if (isset($_SESSION['user_id'])) {
 		header('Location: http://'.$_SERVER['HTTP_HOST'].'/main.php');
         exit;
