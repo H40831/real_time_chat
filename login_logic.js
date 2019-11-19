@@ -28,7 +28,7 @@ const loginFormSubmit = ( loginOrSignup )=> {//loginOrSignup: 関数呼出の際
 
 	//console.log(...loginFormData().entries());//送信値チェック
 
-	fetch('login.php',{
+	fetch('login_logic.php',{
 		method,
 		body
 	})

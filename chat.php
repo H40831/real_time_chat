@@ -27,6 +27,6 @@ require_once __DIR__."/db_access.php";
 
 	</section>
 
-	<script type="text/javascript" src="main.js"></script>
+	<script type="text/javascript" src="chat_logic.js"></script>
 </body>
 </html>
