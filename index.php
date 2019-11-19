@@ -1,5 +1,12 @@
 <?php
+	phpinfo();
 	require_once __DIR__.'/main.php';
+	session_start();
+	if (isset($_SESSION['user_id'])) {
+		header('Location: http://'.$_SERVER['HTTP_HOST'].'/main.php');
+        exit;
+    }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,16 +40,6 @@
 			</p>
 		</div>	
 	</section>
-
-	<section class="chatRoom">
-		<form method="post" action="index.php">
-		    <textarea name="message" class="whiteBox shadow"></textarea>
-		    <!-- ↓buttonじゃなくてinputタグに直す？ -->
-		    <button type="submit" name="sendMessage" class="whiteBox button">発言</button>
-		</form>
-
-	</section>
-
 	<script type="text/javascript" src="main.js"></script>
 </body>
 </html>
