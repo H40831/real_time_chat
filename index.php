@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	require_once __DIR__.'/main.php';
+	#require_once __DIR__.'/main.php';
 	if (isset($_SESSION['user_id'])) {
 		header('Location: http://'.$_SERVER['HTTP_HOST'].'/main.php');
         exit;
@@ -39,6 +39,7 @@
 			</p>
 		</div>	
 	</section>
+
 	<script type="text/javascript" src="main.js"></script>
 </body>
 </html>
