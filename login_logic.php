@@ -16,7 +16,16 @@ $inputPw = filter_input(INPUT_POST,'pw');
 $signupFlag = filter_input(INPUT_POST,'loginOrSignup')==="signup"; 
 
 class Authentication extends MySql {
-	private $result = [];
+	/**
+	*$result
+	*1:フォームに空欄がある
+	*2:該当IDなし
+	*3:ログイン成功
+	*4:パスワード不一致
+	*5:ID重複
+	*6:登録完了
+	*/
+	private $result = 0;
 
 	public function __construct($inputId,$inputPw) {
     	parent::__construct();
@@ -26,7 +35,7 @@ class Authentication extends MySql {
 
 	private function isInputEmpty(){
 		if( empty($this->inputId) || empty($this->inputPw) ){
-			$this->result[] = 1;#フォームに空欄がある
+			$this->result = 1;#フォームに空欄がある
 			return true;
 		}
 	}
@@ -41,15 +50,17 @@ class Authentication extends MySql {
 			':inputId',$this->inputId
 		);
 		if( empty($this->userInfo) ){
-			$this->result[] = 2;#該当IDなし
+			$this->result = 2;#該当IDなし
 			return;
 		};
 
 		if( password_verify($this->inputPw, $this->userInfo[0]['login_pw']) ){
-	        $this->result[] = 3;#ログイン成功
-
+	        $this->result = 3;#ログイン成功
+	        $_SESSION['user_id']=$this->userInfo[0]['user_id'];
+	        $_SESSION['user_name']=$this->userInfo[0]['user_name'];
+	        $_SESSION['login_id']=$this->userInfo[0]['login_id'];
 	    }else{
-	    	$this->result[] = 4;#パスワード不一致
+	    	$this->result = 4;#パスワード不一致
 	    } 
 	}
 
@@ -63,7 +74,7 @@ class Authentication extends MySql {
 			':inputId',$this->inputId
 		);
 		if( !empty($this->userInfo) ){ # inputIdに対するuserInfoが存在する場合、ID重複のためsignup()を中断する。
-			$this->result[] = 5;#ID重複
+			$this->result = 5;#ID重複
 			return;
 		};
 
@@ -73,13 +84,13 @@ class Authentication extends MySql {
 			':inputPw',password_hash($this->inputPw, PASSWORD_BCRYPT)
 		);
 		
-		$this->result[] = 6;#登録完了
+		$this->result = 6;#登録完了
 
-		$this->login();
+		$this->login();#正常であればここですぐにログイン処理へ移行するため、$this->result=6; が日の目を見ることは無い。
 	}
 
 	public function getResponse() {
-		return json_encode( $this->result );
+		return json_encode( [$this->result] );
 	}
 }
 

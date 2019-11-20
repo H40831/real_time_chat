@@ -20,7 +20,10 @@ showPwButton.onclick = ()=>{
 	return false;
 }
 
-//let loginResult = 0;
+const exitLoginWindow = ()=>{
+	window.location.href = 'chat.php';
+}
+
 const loginFormSubmit = ( loginOrSignup )=> {//loginOrSignup: 関数呼出の際、文字列で'login'か'signup'かを明示する。
 	const method = 'post';
 	const body = loginFormData();
@@ -34,7 +37,13 @@ const loginFormSubmit = ( loginOrSignup )=> {//loginOrSignup: 関数呼出の際
 	})
 	.then( response=> response.json() )
 	.then( responseData=> responseData[0] )
-	.then( loginResult=>{ setLoginFormMessage(loginResult); } )
+	.then( loginResult=>{ 
+		if( loginResult === ( 3 ) ){
+			exitLoginWindow();
+		}else{
+			setLoginFormMessage(loginResult);
+		}
+	} )
 	.catch( error=>{ setLoginFormMessage(error) } );
 }
 
@@ -53,7 +62,7 @@ const setLoginFormMessage = (loginResult)=>{
 			message.innerText = '※ 一致するIDが存在しません。';
 			break;
 		case 3:
-			message.innerText = '※ ログインしました。';
+			message.innerText = '※ ログインしました。';　//正常であればログイン後すぐチャット画面へ移行するので、このメッセージは表示されない。
 			break;
 		case 4:
 			message.innerText = '※ パスワードが一致しません。';
@@ -62,7 +71,7 @@ const setLoginFormMessage = (loginResult)=>{
 			message.innerText = '※ このIDは既に使用されています。';
 			break;
 		case 6:
-			message.innerText = '※ 新規登録しました。';
+			message.innerText = '※ 新規登録しました。'; //正常であれば新規登録後すぐログイン処理へ移行するので、このメッセージは表示されない。
 			break;
 		default:
 			message.innerText = loginResult;

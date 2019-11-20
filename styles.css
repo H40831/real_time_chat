@@ -38,7 +38,7 @@ small{
 }
 
 
-/***** 個別スタイル *****/
+/***** login.php *****/
 #loginWindow{
 	width: 50vw;
 	height: 50vh;
@@ -88,4 +88,14 @@ small{
 	border-radius: .5em;
 	padding: .75em;
 	background-color: #bbb;
+}
+
+/***** chat.php *****/
+#messageForm{
+	width: 100vw;
+	box-sizing: border-box;
+	padding: 10px 15vw ;
+}
+#messageArea{
+	width: calc(100% - 3em);
 }
