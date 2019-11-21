@@ -49,7 +49,6 @@ const loginFormSubmit = ( loginOrSignup )=> {//loginOrSignup: 関数呼出の際
 
 
 const setLoginFormMessage = (loginResult)=>{
-	console.log(loginResult);
 	const message = document.getElementById('loginFormMessage');
 	switch( loginResult ){
 		case 0:

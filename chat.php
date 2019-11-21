@@ -24,7 +24,7 @@ require_once __DIR__."/db_access.php";
 </head>
 <body>
 	<button id="logoutButton" class="whiteBox shadow button" onClick="location.href='logout.php'">ログアウト</button>
-	
+
 	<section class="chatRoom">
 		<div id="log">
 			
@@ -32,6 +32,10 @@ require_once __DIR__."/db_access.php";
 		</div>
 
 		<form id="messageForm">
+			<p class="row">
+				<span class="formName">なまえ</span>
+				<input id="nameArea" type="text" name="name" class="whiteBox shadow">
+			</p>
 		    <textarea id="messageArea" name="message" class="whiteBox shadow"></textarea>
 		    <!-- ↓buttonじゃなくてinputタグに直す？ -->
 		    <button id="sendMessage" type="submit" class="whiteBox shadow button">発言</button>

@@ -53,7 +53,7 @@ small{
 	display: block;
 	margin-bottom: .5em;
 }
-.formName{
+#loginWindow .formName{
 	display: inline-block;
 	width: 2em;
 	font-size: .5em;
@@ -96,6 +96,21 @@ small{
 	box-sizing: border-box;
 	padding: 10px 15vw ;
 }
+#messageForm .formName{
+	display: inline-block;
+	width: 3em;
+	font-size: .5em;
+    margin-right: .3em;
+}
+
+#messageForm .row{
+	display: block;
+	margin-bottom: .5em;
+}
 #messageArea{
 	width: calc(100% - 3em);
+}
+#nameArea{
+	width: calc(50% - 6.8em);/* ｢なまえ｣の幅 3.3em 送信ボタンの幅 3.5em */
+	font-size: .8em;
 }
