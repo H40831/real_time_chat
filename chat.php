@@ -23,26 +23,24 @@ require_once __DIR__."/db_access.php";
 	<!-- Font Awesome --> <script src="https://kit.fontawesome.com/2d2bcba3f8.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<button id="logoutButton" class="whiteBox shadow button" onClick="location.href='logout.php'">ログアウト</button>
-
-	<section class="chatRoom">
-		<div id="log">
+	<section id="chatWindow">
+		<div id="chatLog">
 			
 
 		</div>
 
-		<form id="messageForm">
+		<form id="messageForm" class="shadow nonActive">
 			<p class="row">
 				<span class="formName">なまえ</span>
 				<input id="nameArea" type="text" name="name" class="whiteBox shadow">
 			</p>
 		    <textarea id="messageArea" name="message" class="whiteBox shadow"></textarea>
 		    <!-- ↓buttonじゃなくてinputタグに直す？ -->
-		    <button id="sendMessage" type="submit" class="whiteBox shadow button">発言</button>
+		    <button id="sendMessage" class="whiteBox shadow button">発言</button>
 		</form>
 
 	</section>
-
+	<button id="logoutButton" class="whiteBox shadow button" onClick="location.href='logout.php'">ログアウト</button>
 	<script type="text/javascript" src="chat_logic.js"></script>
 </body>
 </html>

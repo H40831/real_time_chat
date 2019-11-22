@@ -31,7 +31,7 @@ small{
 	padding: .25em .5em;
 	background-color: #fff;
 	background: linear-gradient(#ffffff,#fdfdfd);
-    border: 1px solid #ddd;
+	border: 1px solid #ddd;
 }
 .whiteBox.button{
 	font-size: .8em;
@@ -91,10 +91,22 @@ small{
 }
 
 /***** chat.php *****/
-#messageForm{
+#chatWindow{
+	display: flex;
+	flex-direction: column;
 	width: 100vw;
+	height: 100vh;
+}
+#chatLog{
+	background-color: #ccc;
+	height: 100%;
+	overflow-y: scroll;
+}
+#messageForm{
+	width: 100%;
 	box-sizing: border-box;
-	padding: 10px 15vw ;
+	padding: 15px 15vw;
+	max-height: 70%;
 }
 #messageForm .formName{
 	display: inline-block;
@@ -105,12 +117,34 @@ small{
 
 #messageForm .row{
 	display: block;
+	height: 1.7em;
 	margin-bottom: .5em;
 }
 #messageArea{
 	width: calc(100% - 3em);
+	vertical-align: bottom;
+	max-height: calc(100% - 2.2em - 15px);
 }
 #nameArea{
 	width: calc(50% - 6.8em);/* ｢なまえ｣の幅 3.3em 送信ボタンの幅 3.5em */
 	font-size: .8em;
+}
+
+.user.bubble {
+  position: relative;
+  display: inline-block;
+  margin: .25em;
+  padding: 7px 10px;
+  max-width: calc(100% - 10px);
+  background: #fff;
+}
+
+.user.bubble:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -3px;
+  border: 3px solid transparent;
+  border-left: 10px solid #fff;
 }
