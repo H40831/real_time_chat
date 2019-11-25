@@ -79,17 +79,6 @@ small{
     line-height: 1;
 }
 
-.talker{
-	display: inline;
-	font-size: .75em;
-}
-.bubble{
-	display: inline-block;
-	border-radius: .5em;
-	padding: .75em;
-	background-color: #bbb;
-}
-
 /***** chat.php *****/
 #chatWindow{
 	display: flex;
@@ -129,22 +118,47 @@ small{
 	width: calc(50% - 6.8em);/* ｢なまえ｣の幅 3.3em 送信ボタンの幅 3.5em */
 	font-size: .8em;
 }
-
-.user.bubble {
-  position: relative;
-  display: inline-block;
-  margin: .25em;
-  padding: 7px 10px;
-  max-width: calc(100% - 10px);
-  background: #fff;
+#chatLog{
+	padding: .5em 0;
+}
+#chatLog .row{
+	box-sizing: border-box;
+	padding: .25em;
+}
+#chatLog .user.row{
+	text-align: right;
+	padding-right: calc(.25em + 10px);
+}
+#chatLog .other.row{
+	padding-left: calc(.25em + 10px);	
 }
 
+.talker{
+	display: inline;
+	font-size: .75em;
+}
+
+.bubble {
+	display: inline-block;
+	position: relative;
+	border: none;
+	border-radius: .5em;
+	padding: .5em .75em;
+	max-width: calc(100% - 10px);
+    text-align: left;
+}
+.bubble:before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	margin-top: -3px;
+	border: 3px solid transparent;
+}
 .user.bubble:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  margin-top: -3px;
-  border: 3px solid transparent;
-  border-left: 10px solid #fff;
+ 	left: 100%;
+ 	border-left: 10px solid #fff;
+}
+.other.bubble:before {
+	right: 100%;
+	border-right: 10px solid #fff;
 }

@@ -38,8 +38,9 @@ const addLog = (who,message)=>{//who:ユーザ(user) 他人(other) //message:メ
 	const isPositionBottom = chatLog.scrollTop===chatLog.scrollHeight ;//←次やる：これ未完成！その1
 	console.log(isPositionBottom);
 	const row = document.createElement('div');
+	row.classList.add(who,'row');
 	row.innerHTML = `
-	<div class="${who} bubble">${message}</div>
+	<div class="whiteBox ${who} bubble">${message}</div>
 	`;
 	chatLog.appendChild(row);
 
