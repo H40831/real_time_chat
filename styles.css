@@ -1,4 +1,8 @@
 /***** 共通スタイル *****/
+html,body{
+	height: 100%;
+	width: 100%;
+}
 *{
 	transition: .2s;
 	opacity: .95;
@@ -40,8 +44,8 @@ small{
 
 /***** login.php *****/
 #loginWindow{
-	width: 50vw;
-	height: 50vh;
+	width: 50%;
+	height: 50%;
     border: solid 2px #ffffff;
 	background: linear-gradient(#efefef,#eeeeee);
 	border-radius: .75em;
@@ -66,12 +70,12 @@ small{
 	transition: right 0s;
 	position: absolute;
 	outline: none;
-	right: 0;
+	right: 17px;
 	height: calc(2em + 2px);
 	padding: .25em .5em;
 }
 #showPwButton.fa-eye{
-	right: 1px;
+	right: 18px;
 }
 #loginFormMessage{
 	color: red;
@@ -83,8 +87,8 @@ small{
 #chatWindow{
 	display: flex;
 	flex-direction: column;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 }
 #chatLog{
 	background-color: #ccc;
@@ -94,7 +98,7 @@ small{
 #messageForm{
 	width: 100%;
 	box-sizing: border-box;
-	padding: 15px 15vw;
+	padding: 15px 15%;
 	max-height: 70%;
 }
 #messageForm .formName{
