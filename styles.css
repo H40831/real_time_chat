@@ -6,12 +6,10 @@ html,body{
 *{
 	transition: .2s;
 	opacity: .95;
+	box-sizing: border-box;
 }
 small{
 	font-size: .5em;
-}
-.hide{
-	opacity: 0;
 }
 .center{/*このクラスを使うときは、親要素に position: relative; を指定すること！*/
 	position: absolute;
@@ -40,6 +38,23 @@ small{
 .whiteBox.button{
 	font-size: .8em;
 }
+header{
+	position: relative;
+	z-index: 1;
+	height: 6%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 5%;
+}
+@media screen and (orientation: landscape){
+	header{
+		padding: 0 12.5%;
+	}
+}
+button{
+	outline: none;
+}
 
 
 /***** login.php *****/
@@ -54,7 +69,9 @@ small{
 	min-width: 300px;
 }
 #loginWindow .row{
-	display: block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin-bottom: .5em;
 }
 #loginWindow .formName{
@@ -70,36 +87,131 @@ small{
 	transition: right 0s;
 	position: absolute;
 	outline: none;
-	right: 17px;
+	right: 0;
 	height: calc(2em + 2px);
 	padding: .25em .5em;
 }
 #showPwButton.fa-eye{
-	right: 18px;
+	right: 1px;
 }
+
 #loginFormMessage{
 	color: red;
     vertical-align: text-top;
     line-height: 1;
 }
+#loginButton{
+	margin-right: 1em;
+}
 
-/***** chat.php *****/
+/***** chat.php ヘッダー *****/
+#roomMenu{
+	width: 100%;
+	opacity: 1;
+	background: #fff;
+    height: 91.5%;
+    position: absolute;
+    top: 6%;
+    z-index: 1;
+    overflow: scroll;
+    padding: 5%;
+}
+@media screen and (orientation: landscape){
+	#roomMenu{
+		padding: 2.5% 12.5%;
+	}
+}
+#roomMenu.shadow{
+	box-shadow: rgba(0, 0, 0, 0.2) 0em 1em 1em -1em;
+}
+#roomMenu.hide,
+#roomMenu.hide *{
+	height: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+#roomMenuButton{
+	position: absolute;
+	bottom: -94vh;
+	width: 90%;
+	text-align: center;
+}
+#roomMenuButton.hide{
+	top: initial;
+	bottom: -0.5em;
+}
+@media screen and (orientation: landscape){
+	#roomMenuButton{
+		width: 75%;
+	}
+}
+#roomList{
+	table-layout: fixed;
+	border-collapse: separate;
+	border-spacing: .5em .75em;
+	width: calc(100% + 1em);
+    margin: 0 -.5em;
+}
+#roomList tr td{
+	white-space: nowrap;
+	text-align: center;
+	vertical-align: bottom;
+	font-size: .8em;
+	overflow-x: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	cursor: pointer;
+}
+#roomList tr td::-webkit-scrollbar {
+	display:none;
+}
+#roomList tr td:nth-of-type(1){
+	border-bottom: 1px solid #ddd;
+	text-align: left;
+	font-size: 1em;
+	font-weight: bold;
+	width: 75%;
+}
+#roomList tr td:nth-of-type(2){
+	font-size: .8em;
+	width: 10%;
+	
+}
+#roomList tr td:nth-of-type(3){
+	font-size: .8em;
+	width: 15%;
+}
+
+
+/***** chat.php ボディ *****/
+
 #chatWindow{
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	height: 100%;
+	height: calc(100% - 6%);
 }
 #chatLog{
 	background-color: #ccc;
 	height: 100%;
 	overflow-y: scroll;
 }
+@media screen and (orientation: landscape){
+	#chatLog{
+		height: 80%;
+	}
+}
 #messageForm{
 	width: 100%;
-	box-sizing: border-box;
-	padding: 15px 15%;
-	max-height: 70%;
+	padding: 5%;
+	flex-shrink: 0;
+	display: flex;
+	flex-direction: column;
+}
+@media screen and (orientation: landscape){
+	#messageForm{
+		padding: 2.5% 12.5%;
+	}
 }
 #messageForm .formName{
 	display: inline-block;
@@ -109,21 +221,38 @@ small{
 }
 
 #messageForm .row{
-	display: block;
-	height: 1.7em;
-	margin-bottom: .5em;
+	display: flex;
+	align-items: center;
+}
+.row#messageAreaRow{
+	flex-grow: 1;
+	align-items: flex-end;
+	margin-top: .5em;
 }
 #messageArea{
-	width: calc(100% - 3em);
-	vertical-align: bottom;
-	max-height: calc(100% - 2.2em - 15px);
+	margin-right: .5em;
+	width: calc(100% - 3.5em);
+	max-height: 17.5em;
+}
+@media screen and (orientation: landscape){
+	#messageArea{
+		margin-right: .5em;
+		width: calc(100% - 3.5em);
+		max-height: 22.5em;
+	}
 }
 #nameArea{
-	width: calc(50% - 6.8em);/* ｢なまえ｣の幅 3.3em 送信ボタンの幅 3.5em */
+	width: calc(100% - 6.95em);
 	font-size: .8em;
+}
+@media screen and (orientation: landscape){
+	#nameArea{
+		width: calc(50% - 6.95em);
+	}
 }
 #chatLog{
 	padding: .5em 0;
+	flex-shrink: 1;
 }
 #chatLog .row{
 	box-sizing: border-box;

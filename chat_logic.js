@@ -4,6 +4,8 @@ const messageFormData = ()=> new FormData(messageForm);
 const messageArea = document.getElementById('messageArea');
 const nameArea = document.getElementById('nameArea');
 const sendMessageButton = document.getElementById('sendMessage');
+const roomMenu = document.getElementById('roomMenu');
+const roomMenuButton = document.getElementById('roomMenuButton');
 
 const setInitialInfo = (()=> {
 	const method = 'post';
@@ -34,8 +36,18 @@ const sendMessage = ()=> {
 	.catch( error=>{ console.log(error) } );
 }
 
-const addLog = (who,message)=>{//who:ユーザ(user) 他人(other) //message:メッセージ本文
-	const isPositionBottom = chatLog.scrollTop===chatLog.scrollHeight ;//←次やる：これ未完成！その1
+const addDBLog = (message)=> {//未作成
+	const method = 'post';
+	fetch('room_list.php',{
+		method,
+	})
+	.then( response=> response.json() )
+	.then( log=> { console.log(log) } )
+	.catch( error=> { console.log(error) } );
+};
+
+const addWindowLog = (who,message)=>{//who:ユーザ(user) 他人(other) //message:メッセージ本文
+	const isPositionBottom = chatLog.scrollTop + chatLog.clientHeight >= chatLog.scrollHeight - 30 ;//30は、最下行のテキストが読めるくらいの位置。
 	console.log(isPositionBottom);
 	const row = document.createElement('div');
 	row.classList.add(who,'row');
@@ -45,11 +57,43 @@ const addLog = (who,message)=>{//who:ユーザ(user) 他人(other) //message:メ
 	chatLog.appendChild(row);
 
 	if(isPositionBottom){//もしスクロール位置が最下部だったら、
-		chatLog.scrollTo(0,chatLog.scrollHeight);//新しい最下部までスクロールする。←次やる：これ未完成！その2
+		chatLog.scrollTo(0,chatLog.scrollHeight);//新しい最下部までスクロールする。
 	}
 }
 
+const switchRoomMenu = ()=>{
+	if(roomMenu.classList.contains('hide')){
+		roomMenu.className = "shadow";
+		roomMenuButton.className = "";
+		window.setTimeout(
+			()=>{roomMenuButton.className = "fas fa-chevron-up"},
+			150
+		)
+	}else{
+		roomMenu.className = "shadow hide";
+		roomMenuButton.className = "hide";
+		window.setTimeout(
+			()=>{roomMenuButton.className = "fas fa-chevron-down hide"},
+			150
+		)
+	}
+}
+const getRoomList = ()=>{
+	const method = 'post';
+	fetch('room_list.php',{
+		method,
+	})
+	.then( response=> response.json() )
+	.then( log=> { console.log(log) } )
+	.catch( error=> { console.log(error) } );
+}
+
+switchRoomMenu();
 messageForm.onsubmit = ()=> {
 	sendMessage();
 	return false;
+}
+
+roomMenuButton.onclick = ()=> {
+	switchRoomMenu();
 }
