@@ -27,34 +27,18 @@ $roomMenuFlag = empty($_SESSION['currentRoom']) ? "hide" : "";//JavaScriptのswi
 	<!-- Font Awesome --> <script src="https://kit.fontawesome.com/2d2bcba3f8.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<header class="shadow nonActive">
-		<button id="roomMenuButton"></button><!-- class属性の値はJavaScriptのroomMenuToggle()で管理 -->
-		<p id="roomId">たのしいチャットルーム</p>
+	<header id="headMenu" class="chatMenu shadow nonActive">
+		<p id="roomName">たのしいチャットルーム</p>
 		<button id="logoutButton" class="whiteBox shadow button" onClick="location.href='logout.php'">ログアウト</button>
 	</header>
+	<button id="roomMenuButton"></button><!-- class属性の値はJavaScriptのroomMenuToggle()で管理 -->
 
 	<section id="roomMenu" class="<?= $roomMenuFlag ?>"><!-- class属性の値はPHPの$roomMenuFlagと、JavaScriptのswitchRoomMenu()で管理 -->
-		<table id="roomList">
-			<tr>
-				<td>部屋名部屋名部屋名部屋名部屋名部屋名部屋名部屋名部屋名部屋名</td>
-				<td>人数</td>
-				<td>状態</td>
-			</tr>
-			<tr>
-				<td>部屋名部屋名部屋名部屋名部屋名部屋名部屋名部屋名部屋名部屋名</td>
-				<td>人数</td>
-				<td>状態</td>
-			</tr>
-			<tr>
-				<td>部屋名部屋名部屋名部屋名部屋名部屋名部屋名部屋名部屋名部屋名</td>
-				<td>人数</td>
-				<td>状態</td>
-			</tr>
-			<tr>
-				<td>部屋名部屋名部屋名部屋名部屋名部屋名部屋名部屋名部屋名部屋名</td>
-				<td>人数</td>
-				<td>状態</td>
-			</tr>
+		<ul id="roomList">
+			<li>サンプルのチャットルーム</li>
+			<li>この部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーです</li>
+			<li>たのしいチャットルーム</li>
+			<li>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト</li>
 		</table>
 	</section>
 
@@ -64,7 +48,7 @@ $roomMenuFlag = empty($_SESSION['currentRoom']) ? "hide" : "";//JavaScriptのswi
 
 		</div>
 
-		<form id="messageForm" class="shadow nonActive">
+		<form id="messageForm" class="chatMenu shadow nonActive">
 			<p class="row">
 				<span class="formName">なまえ</span>
 				<input id="nameArea" type="text" name="name" class="whiteBox shadow">

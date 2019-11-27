@@ -6,6 +6,7 @@ const nameArea = document.getElementById('nameArea');
 const sendMessageButton = document.getElementById('sendMessage');
 const roomMenu = document.getElementById('roomMenu');
 const roomMenuButton = document.getElementById('roomMenuButton');
+const rooms = ()=> (Array.from( document.getElementsByClassName('rooms') ));
 
 const setInitialInfo = (()=> {
 	const method = 'post';
@@ -61,31 +62,48 @@ const addWindowLog = (who,message)=>{//who:ユーザ(user) 他人(other) //messa
 	}
 }
 
+const getRoomList = ()=>{
+	const method = 'post';
+	return fetch('room_list.php',{
+		method,
+	})
+	.then( response=> response.json() )
+	.catch( error=> { console.log(error) } );
+}
+
+const setRoomList = ()=>{
+	const roomList = document.getElementById('roomList');
+	roomList.innerHTML = '';
+	getRoomList()
+	.then( responseData=> {
+		responseData.forEach(
+			i=> {
+				const li = document.createElement('li');
+				li.dataset.room = i.room_id;
+				li.className = "rooms";
+				li.innerHTML = i.room_name;
+				roomList.appendChild(li);
+			}
+		)
+	})
+}
 const switchRoomMenu = ()=>{
 	if(roomMenu.classList.contains('hide')){
-		roomMenu.className = "shadow";
+		setRoomList();
+		roomMenu.className = "chatMenu shadow";
 		roomMenuButton.className = "";
 		window.setTimeout(
 			()=>{roomMenuButton.className = "fas fa-chevron-up"},
 			150
 		)
 	}else{
-		roomMenu.className = "shadow hide";
+		roomMenu.className = "chatMenu shadow hide";
 		roomMenuButton.className = "hide";
 		window.setTimeout(
 			()=>{roomMenuButton.className = "fas fa-chevron-down hide"},
 			150
 		)
 	}
-}
-const getRoomList = ()=>{
-	const method = 'post';
-	fetch('room_list.php',{
-		method,
-	})
-	.then( response=> response.json() )
-	.then( log=> { console.log(log) } )
-	.catch( error=> { console.log(error) } );
 }
 
 switchRoomMenu();
@@ -97,3 +115,9 @@ messageForm.onsubmit = ()=> {
 roomMenuButton.onclick = ()=> {
 	switchRoomMenu();
 }
+
+rooms().forEach(
+	room=>{
+		room.onclick = ()=>{console.log(`${room.dataset.room}に移動します。`)};
+	}
+);//つぎやる: これを即時関数にする。

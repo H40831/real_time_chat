@@ -11,12 +11,6 @@ html,body{
 small{
 	font-size: .5em;
 }
-.center{/*このクラスを使うときは、親要素に position: relative; を指定すること！*/
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%,-50%);	
-}
 .shadow{
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px .5em;
 }
@@ -38,26 +32,28 @@ small{
 .whiteBox.button{
 	font-size: .8em;
 }
-header{
-	position: relative;
-	z-index: 1;
-	height: 6%;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 0 5%;
-}
-@media screen and (orientation: landscape){
-	header{
-		padding: 0 12.5%;
-	}
-}
 button{
 	outline: none;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:initial;
+    }
+}
 
 /***** login.php *****/
+
+.center{/*このクラスを使うときは、親要素に position: relative; を指定すること！*/
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);	
+}
+
 #loginWindow{
 	width: 50%;
 	height: 50%;
@@ -86,7 +82,6 @@ button{
 #showPwButton{
 	transition: right 0s;
 	position: absolute;
-	outline: none;
 	right: 0;
 	height: calc(2em + 2px);
 	padding: .25em .5em;
@@ -105,21 +100,37 @@ button{
 }
 
 /***** chat.php ヘッダー *****/
-#roomMenu{
+
+.chatMenu{
 	width: 100%;
-	opacity: 1;
-	background: #fff;
+	padding: 5%;
+	background-color: #fff;
+}
+@media screen and (orientation: landscape){
+	.chatMenu{
+		padding: 2.5vh 12.5%;
+	}
+}
+#headMenu{
+	position: relative;
+	z-index: 1;
+	height: 6%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+#roomName{
+	font-weight: bold;
+}
+
+#roomMenu{
     height: 91.5%;
     position: absolute;
     top: 6%;
     z-index: 1;
     overflow: scroll;
-    padding: 5%;
-}
-@media screen and (orientation: landscape){
-	#roomMenu{
-		padding: 2.5% 12.5%;
-	}
 }
 #roomMenu.shadow{
 	box-shadow: rgba(0, 0, 0, 0.2) 0em 1em 1em -1em;
@@ -129,89 +140,85 @@ button{
 	height: 0;
 	padding-top: 0;
 	padding-bottom: 0;
+	border: none;
+}
+#roomMenu.hide *{
+	opacity: 0;
 }
 #roomMenuButton{
 	position: absolute;
-	bottom: -94vh;
+	top: 96.25vh;
+	z-index: 2;
 	width: 90%;
+	margin: 0 5%;
 	text-align: center;
+	color: #666;
+}
+#roomMenuButton:before{
+	position: relative;
+}
+#roomMenuButton:after{
+	content: '';
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 50%;
+	background-color: #fff;
+	position: absolute;
+	z-index: -1;
+    display: inline-block;
+    top: -.325em;
+    right: calc(50% - .75em);
+    box-shadow: rgba(0, 0, 0, 0.2) 0em 1em 1em -1em;
 }
 #roomMenuButton.hide{
-	top: initial;
-	bottom: -0.5em;
+	top: 5vh;
 }
 @media screen and (orientation: landscape){
 	#roomMenuButton{
 		width: 75%;
+		margin: 0 12.5%;
 	}
 }
-#roomList{
-	table-layout: fixed;
-	border-collapse: separate;
-	border-spacing: .5em .75em;
-	width: calc(100% + 1em);
-    margin: 0 -.5em;
+#roomList br{
+	display: none;
 }
-#roomList tr td{
+#roomList li{
 	white-space: nowrap;
-	text-align: center;
-	vertical-align: bottom;
-	font-size: .8em;
 	overflow-x: scroll;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
 	cursor: pointer;
+	margin-bottom: .75em;
+	border-bottom: 1px solid #ddd;
+	font-weight: bold;
+	animation: fadeIn .2s;
 }
-#roomList tr td::-webkit-scrollbar {
+#roomList li::-webkit-scrollbar {
 	display:none;
 }
-#roomList tr td:nth-of-type(1){
-	border-bottom: 1px solid #ddd;
-	text-align: left;
-	font-size: 1em;
-	font-weight: bold;
-	width: 75%;
-}
-#roomList tr td:nth-of-type(2){
-	font-size: .8em;
-	width: 10%;
-	
-}
-#roomList tr td:nth-of-type(3){
-	font-size: .8em;
-	width: 15%;
-}
-
 
 /***** chat.php ボディ *****/
 
 #chatWindow{
-	display: flex;
 	flex-direction: column;
 	width: 100%;
-	height: calc(100% - 6%);
+	height: 100%;
+	background-color: #ccc;
+	position: absolute;
+	top: 0;
+	padding: 6vh 0 20vh;
 }
 #chatLog{
-	background-color: #ccc;
 	height: 100%;
 	overflow-y: scroll;
-}
-@media screen and (orientation: landscape){
-	#chatLog{
-		height: 80%;
-	}
+	padding: .5em 0;
 }
 #messageForm{
-	width: 100%;
-	padding: 5%;
-	flex-shrink: 0;
 	display: flex;
 	flex-direction: column;
-}
-@media screen and (orientation: landscape){
-	#messageForm{
-		padding: 2.5% 12.5%;
-	}
+    position: absolute;
+    bottom: 0;
+    min-height: 20%;
 }
 #messageForm .formName{
 	display: inline-block;
@@ -232,14 +239,7 @@ button{
 #messageArea{
 	margin-right: .5em;
 	width: calc(100% - 3.5em);
-	max-height: 17.5em;
-}
-@media screen and (orientation: landscape){
-	#messageArea{
-		margin-right: .5em;
-		width: calc(100% - 3.5em);
-		max-height: 22.5em;
-	}
+	max-height: 25em;
 }
 #nameArea{
 	width: calc(100% - 6.95em);
