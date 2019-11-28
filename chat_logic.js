@@ -88,8 +88,6 @@ const loadChatLogs = ( logs )=>{
 };
 const moveRooms = ( roomId,roomName )=>{
 	console.log(`Room ID ${roomId}: ${roomName}に移動します。`)
-
-
 	const method = 'post';
 	const body = new FormData();
 	body.append('room_id',roomId);
@@ -100,8 +98,7 @@ const moveRooms = ( roomId,roomName )=>{
 	.then( response=> response.json() )
 	.then( logs=> { loadChatLogs( logs ); } )
 	.catch( error=> { console.log(error) } );
-
-	roomName.innerText = roomName;
+	window.roomName.innerText = roomName;
 }
 const appendMoveRooms = ()=>{
 	rooms().forEach(
