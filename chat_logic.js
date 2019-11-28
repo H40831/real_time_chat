@@ -1,20 +1,32 @@
+const roomMenu = document.getElementById('roomMenu');
+const roomMenuButton = document.getElementById('roomMenuButton');
+const rooms = ()=> (Array.from( document.getElementsByClassName('rooms') ));
+const roomList = document.getElementById('roomList');
+const roomName = document.getElementById('roomName');
 const chatLog = document.getElementById('chatLog');
 const messageForm = document.getElementById('messageForm');
 const messageFormData = ()=> new FormData(messageForm);
 const messageArea = document.getElementById('messageArea');
 const nameArea = document.getElementById('nameArea');
 const sendMessageButton = document.getElementById('sendMessage');
-const roomMenu = document.getElementById('roomMenu');
-const roomMenuButton = document.getElementById('roomMenuButton');
-const rooms = ()=> (Array.from( document.getElementsByClassName('rooms') ));
 
-const setInitialInfo = (()=> {
+const loadInitialInfo = (()=> {
 	const method = 'post';
 	fetch('chat_onload.php',{
 		method,
 	})
 	.then( response=> response.json() )
-	.then( userInfo=> { nameArea.value = userInfo.user_name; } )
+	.then( userInfo=> {
+		window.userId = userInfo.user_id;
+		window.currentRoom = userInfo.current_room;
+		window.currentRoomName = userInfo.current_room_name;
+		nameArea.value = userInfo.user_name;
+	})
+	.then( ()=>{
+		if(currentRoom){ 
+			moveRooms( currentRoom, currentRoomName ) 
+		}
+	})
 	.catch( error=> { console.log(error) } );
 })();
 
@@ -25,19 +37,16 @@ const messageClear = ()=> {
 const sendMessage = ()=> {
 	const method = 'post';
 	const body = messageFormData();
-	console.log(...messageFormData().entries());//送信値チェック
-
+	//console.log(...messageFormData().entries());//送信値チェック
+	messageClear();
 	fetch('chat_logic.php',{
 		method,
 		body
 	})
-	.then( response=> response.json() )
-	.then( responseData=> {console.log(responseData)} )
-	.then( messageClear() )
 	.catch( error=>{ console.log(error) } );
 }
 
-const addDBLog = (message)=> {//未作成
+const pushLog = (who,message)=> {//未作成
 	const method = 'post';
 	fetch('room_list.php',{
 		method,
@@ -47,9 +56,8 @@ const addDBLog = (message)=> {//未作成
 	.catch( error=> { console.log(error) } );
 };
 
-const addWindowLog = (who,message)=>{//who:ユーザ(user) 他人(other) //message:メッセージ本文
+const addLog = (who,message)=>{//who:ユーザ(user) 他人(other) //message:メッセージ本文
 	const isPositionBottom = chatLog.scrollTop + chatLog.clientHeight >= chatLog.scrollHeight - 30 ;//30は、最下行のテキストが読めるくらいの位置。
-	console.log(isPositionBottom);
 	const row = document.createElement('div');
 	row.classList.add(who,'row');
 	row.innerHTML = `
@@ -62,7 +70,44 @@ const addWindowLog = (who,message)=>{//who:ユーザ(user) 他人(other) //messa
 	}
 }
 
-const getRoomList = ()=>{
+const loadChatLogs = ( logs )=>{
+	chatLog.innerHTML = "";
+	console.log(logs);
+
+	logs.forEach( log=>{
+		log.user_id === userId ?
+			addLog( 'user', log.talk_value ):
+			addLog( 'other', log.talk_value );
+	})
+};
+const moveRooms = ( roomId,roomName )=>{
+	console.log(`Room ID ${roomId}: ${roomName}に移動します。`)
+
+
+	const method = 'post';
+	const body = new FormData();
+	body.append('room_id',roomId);
+	fetch('move_room.php',{
+		method,
+		body
+	})
+	.then( response=> response.json() )
+	.then( logs=> { loadChatLogs( logs ); } )
+	.catch( error=> { console.log(error) } );
+
+	roomName.innerText = roomName;
+}
+const appendMoveRooms = ()=>{
+	rooms().forEach(
+		room=>{
+			room.onclick = ()=>{
+				moveRooms( room.dataset.room, room.innerText );
+				switchRoomMenu();
+			};
+		}
+	);
+}
+const loadRoomList = ()=>{
 	const method = 'post';
 	return fetch('room_list.php',{
 		method,
@@ -70,11 +115,9 @@ const getRoomList = ()=>{
 	.then( response=> response.json() )
 	.catch( error=> { console.log(error) } );
 }
-
-const setRoomList = ()=>{
-	const roomList = document.getElementById('roomList');
+const addRoomList = ()=>{
 	roomList.innerHTML = '';
-	getRoomList()
+	loadRoomList()
 	.then( responseData=> {
 		responseData.forEach(
 			i=> {
@@ -86,10 +129,11 @@ const setRoomList = ()=>{
 			}
 		)
 	})
+	.then( ()=>{ appendMoveRooms() } )
 }
 const switchRoomMenu = ()=>{
 	if(roomMenu.classList.contains('hide')){
-		setRoomList();
+		addRoomList();
 		roomMenu.className = "chatMenu shadow";
 		roomMenuButton.className = "";
 		window.setTimeout(
@@ -107,8 +151,11 @@ const switchRoomMenu = ()=>{
 }
 
 switchRoomMenu();
+
 messageForm.onsubmit = ()=> {
-	sendMessage();
+	if(messageArea.value){
+		sendMessage();
+	}
 	return false;
 }
 
@@ -116,8 +163,3 @@ roomMenuButton.onclick = ()=> {
 	switchRoomMenu();
 }
 
-rooms().forEach(
-	room=>{
-		room.onclick = ()=>{console.log(`${room.dataset.room}に移動します。`)};
-	}
-);//つぎやる: これを即時関数にする。

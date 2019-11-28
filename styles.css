@@ -156,6 +156,7 @@ button{
 }
 #roomMenuButton:before{
 	position: relative;
+	left: .5px;
 }
 #roomMenuButton:after{
 	content: '';

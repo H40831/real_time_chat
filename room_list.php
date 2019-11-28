@@ -10,6 +10,6 @@ $listGetter = new MySQL;
 $roomArray = $listGetter->sql(
 	'SELECT talk_rooms.room_id,talk_rooms.room_name FROM talk_rooms JOIN talk_room_members ON talk_rooms.room_id = talk_room_members.room_id WHERE user_id = :user_id;',
 	':user_id',$_SESSION['user_id']
-);//次やる:これ動くかチェック
+);
 $roomList = json_encode($roomArray);
 echo $roomList;

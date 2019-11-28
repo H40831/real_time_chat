@@ -10,11 +10,6 @@ $inputMessage = filter_input(INPUT_POST,'message');
 $inputName = filter_input(INPUT_POST,'name');
 
 class ChatController extends MySql {
-	private $response = [
-		"user_name" => "",
-		"talk_value" => "",
-	];
-
 	public function __construct($inputMessage,$inputName) {
     	parent::__construct();
     	$this->inputMessage = $inputMessage;
@@ -33,8 +28,6 @@ class ChatController extends MySql {
 		);
 		//セッション変数の更新
 		$_SESSION['user_name'] = $this->inputName;
-		//レスポンス //HTMLの入力値を受け取って設定してるだけなので、フロントでは使わない気もするけど、念の為。
-		$this->response['user_name'] = $this->inputName;
 	}
 	public function sendMessage() {
 		$talk_id = null;
@@ -50,7 +43,6 @@ class ChatController extends MySql {
 			':user_id',$user_id,
 			':room_id',$room_id
 		);
-		$this->response['talk_value'] = $talk_value;
 	}
 
 	public function getResponse() {
@@ -61,4 +53,3 @@ class ChatController extends MySql {
 $ctrl = new ChatController($inputMessage,$inputName);
 $ctrl->setUserName();
 $ctrl->sendMessage();
-echo $ctrl->getResponse();

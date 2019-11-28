@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 require_once __DIR__."/vendor/autoload.php";
 require_once __DIR__."/db_access.php";
 
-$roomMenuFlag = empty($_SESSION['currentRoom']) ? "hide" : "";//JavaScriptのswitchRoomMenu()が発動するため、この時点ではフラグが逆になる。
+$roomMenuFlag = empty($_SESSION['current_room']) ? "hide" : "";//JavaScriptのswitchRoomMenu()が発動するため、この時点ではフラグが逆になる。
 
 ?>
 
@@ -35,11 +35,7 @@ $roomMenuFlag = empty($_SESSION['currentRoom']) ? "hide" : "";//JavaScriptのswi
 
 	<section id="roomMenu" class="<?= $roomMenuFlag ?>"><!-- class属性の値はPHPの$roomMenuFlagと、JavaScriptのswitchRoomMenu()で管理 -->
 		<ul id="roomList">
-			<li>サンプルのチャットルーム</li>
-			<li>この部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーですこの部屋はダミーです</li>
-			<li>たのしいチャットルーム</li>
-			<li>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト<br>改行テスト</li>
-		</table>
+		</ul>
 	</section>
 
 	<section id="chatWindow">
