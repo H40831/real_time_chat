@@ -37,13 +37,19 @@ const messageClear = ()=> {
 const sendMessage = ()=> {
 	const method = 'post';
 	const body = messageFormData();
-	//console.log(...messageFormData().entries());//送信値チェック
+	console.log(...messageFormData().entries());//送信値チェック
 	messageClear();
 	fetch('chat_logic.php',{
 		method,
 		body
 	})
 	.catch( error=>{ console.log(error) } );
+}
+messageForm.onsubmit = ()=> {
+	if(messageArea.value){
+		sendMessage();
+	}
+	return false;
 }
 
 const pushLog = (who,message)=> {//未作成
@@ -149,17 +155,11 @@ const switchRoomMenu = ()=>{
 		)
 	}
 }
-
 switchRoomMenu();
-
-messageForm.onsubmit = ()=> {
-	if(messageArea.value){
-		sendMessage();
-	}
-	return false;
-}
-
 roomMenuButton.onclick = ()=> {
 	switchRoomMenu();
 }
+
+
+
 
