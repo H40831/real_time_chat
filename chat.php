@@ -25,10 +25,11 @@ $roomMenuFlag = empty($_SESSION['current_room']) ? "hide" : "";//JavaScriptのsw
 	<link rel="stylesheet" type="text/css" href="ress.css">
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<!-- Font Awesome --> <script src="https://kit.fontawesome.com/2d2bcba3f8.js" crossorigin="anonymous"></script>
+    <script src="http://52.195.2.97:8080/socket.io/socket.io.js"></script>
 </head>
 <body>
 	<header id="headMenu" class="chatMenu shadow nonActive">
-		<p id="roomName">たのしいチャットルーム</p>
+		<p id="roomName"></p>
 		<button id="logoutButton" class="whiteBox shadow button" onClick="location.href='logout.php'">ログアウト</button>
 	</header>
 	<button id="roomMenuButton"></button><!-- class属性の値はJavaScriptのroomMenuToggle()で管理 -->
@@ -40,13 +41,12 @@ $roomMenuFlag = empty($_SESSION['current_room']) ? "hide" : "";//JavaScriptのsw
 
 	<section id="chatWindow">
 		<div id="chatLog">
-			
 
 		</div>
 
 		<form id="messageForm" class="chatMenu shadow nonActive">
 			<p class="row">
-				<span class="formName">なまえ</span>
+				<span class="formName"></span>
 				<input id="nameArea" type="text" name="name" class="whiteBox shadow">
 			</p>
 			<p id="messageAreaRow" class="row">

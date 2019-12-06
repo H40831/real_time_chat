@@ -2,4 +2,4 @@ RewriteEngine On
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteRule ^([^.]+)$ $1.php [NC,L]
 Options -Indexes
-DirectoryIndex login.php chat.php index.php
+DirectoryIndex login.php
