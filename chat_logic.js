@@ -10,9 +10,9 @@ const messageArea = document.getElementById('messageArea');
 const nameArea = document.getElementById('nameArea');
 const sendMessageButton = document.getElementById('sendMessage');
 
-const loadInitialInfo = (()=> {
+const loadInitialInfo = ()=> {//最下行で実行。
 	const method = 'post';
-	fetch('chat_onload.php',{
+	return fetch('chat_onload.php',{
 		method,
 	})
 	.then( response=> response.json() )
@@ -28,7 +28,7 @@ const loadInitialInfo = (()=> {
 		}
 	})
 	.catch( error=> { console.log(error) } );
-})();
+};
 
 const messageClear = ()=> {
 	messageArea.value = '';
@@ -97,7 +97,7 @@ const moveRooms = ( roomId,roomName )=>{
 	})
 	.then( response=> response.json() )
 	.then( logs=> { loadChatLogs( logs ); } )
-	.catch( error=> { console.log(error) } );
+	.catch( error=> { console.log(error); } );
 	window.roomName.innerText = roomName;
 }
 const appendMoveRooms = ()=>{
@@ -152,10 +152,11 @@ const switchRoomMenu = ()=>{
 		)
 	}
 }
-switchRoomMenu();
 roomMenuButton.onclick = ()=> {
 	switchRoomMenu();
 }
+loadInitialInfo()
+.then( ()=>{ switchRoomMenu() } );
 
 
 

@@ -79,6 +79,11 @@ const setLoginFormMessage = (loginResult)=>{
 	}
 }
 
+pwForm.onkeypress = e=> {
+	if(e.keyCode===13){
+		loginFormSubmit( 'login' );
+	}
+}
 loginButton.onclick = ()=> {
 	loginFormSubmit( 'login' );
 };
