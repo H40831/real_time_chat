@@ -159,5 +159,6 @@ loadInitialInfo()
 .then( ()=>{ switchRoomMenu() } );
 
 
-
+let socket = io.connect('ec2-52-195-2-97.ap-northeast-1.compute.amazonaws.com:8080');
+let test = ()=>{socket.emit('test', 'test')};
 
