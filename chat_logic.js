@@ -1,3 +1,4 @@
+const socket = io.connect('ec2-52-195-2-97.ap-northeast-1.compute.amazonaws.com:8080');
 const roomMenu = document.getElementById('roomMenu');
 const roomMenuButton = document.getElementById('roomMenuButton');
 const rooms = ()=> (Array.from( document.getElementsByClassName('rooms') ));
@@ -9,6 +10,8 @@ const messageFormData = ()=> new FormData(messageForm);
 const messageArea = document.getElementById('messageArea');
 const nameArea = document.getElementById('nameArea');
 const sendMessageButton = document.getElementById('sendMessage');
+
+socket.on( 'notice' , notice=>{ console.log(notice) } );
 
 const loadInitialInfo = ()=> {//最下行で実行。
 	const method = 'post';
@@ -86,9 +89,13 @@ const loadChatLogs = ( logs )=>{
 			addLog( 'other', log.talk_value );
 	})
 };
+
 const moveRooms = ( roomId,roomName )=>{
-	console.log(`Room ID ${roomId}: ${roomName}に移動します。`)
 	const method = 'post';
+	window.roomName.innerText = roomName;
+	socket.emit( 'moveRooms', roomId );
+
+	console.log(`Room ID ${roomId}: ${roomName}に移動します。`)
 	const body = new FormData();
 	body.append('room_id',roomId);
 	fetch('move_room.php',{
@@ -98,8 +105,11 @@ const moveRooms = ( roomId,roomName )=>{
 	.then( response=> response.json() )
 	.then( logs=> { loadChatLogs( logs ); } )
 	.catch( error=> { console.log(error); } );
-	window.roomName.innerText = roomName;
 }
+
+let showRooms = ()=>socket.emit('rooms',function(i){console.log(i)});
+
+
 const appendMoveRooms = ()=>{
 	rooms().forEach(
 		room=>{
@@ -157,8 +167,4 @@ roomMenuButton.onclick = ()=> {
 }
 loadInitialInfo()
 .then( ()=>{ switchRoomMenu() } );
-
-
-let socket = io.connect('ec2-52-195-2-97.ap-northeast-1.compute.amazonaws.com:8080');
-let test = ()=>{socket.emit('test', 'test')};
 
