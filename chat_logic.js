@@ -12,6 +12,12 @@ const nameArea = document.getElementById('nameArea');
 const sendMessageButton = document.getElementById('sendMessage');
 
 socket.on( 'notice' , notice=>{ console.log(notice) } );
+socket.on( 'getCurrentRoom' , ()=>{
+	if( typeof currentRoom === 'undefined' ){ return }
+	moveRooms(currentRoom,currentRoomName)
+});
+
+const showRooms = ()=>socket.emit('rooms',function(i){console.log(i)});
 
 const loadInitialInfo = ()=> {//最下行で実行。
 	const method = 'post';
@@ -30,14 +36,15 @@ const loadInitialInfo = ()=> {//最下行で実行。
 			moveRooms( currentRoom, currentRoomName ) 
 		}
 	})
-	.catch( error=> { console.log(error) } );
+	.catch( error=> { throw error } );
 };
 
 const messageClear = ()=> {
 	messageArea.value = '';
 }
 
-const sendMessage = ()=> {
+const sendMessage = async ()=> {
+	/*PHP(PDO)
 	const method = 'post';
 	const body = messageFormData();
 	console.log(...messageFormData().entries());//送信値チェック
@@ -46,11 +53,21 @@ const sendMessage = ()=> {
 		method,
 		body
 	})
-	.catch( error=>{ console.log(error) } );
+	.catch( error=>{ throw error } );
+	*/
+	const data = {
+		talkValue: messageArea.value,
+		talkTime: moment().format('YYYY-MM-DD HH:mm:ss'),
+		userId: window.userId,
+		roomId: window.currentRoom,
+	}
+	await socket.json.emit('sendMessage', data );
+	await reloadChatLogs();
 }
 messageForm.onsubmit = ()=> {
-	if(messageArea.value){
+	if(messageArea.value){ 
 		sendMessage();
+		messageArea.value = '';
 	}
 	return false;
 }
@@ -62,7 +79,7 @@ const pushLog = (who,message)=> {//未作成
 	})
 	.then( response=> response.json() )
 	.then( log=> { console.log(log) } )
-	.catch( error=> { console.log(error) } );
+	.catch( error=> { throw error } );
 };
 
 const addLog = (who,message)=>{//who:ユーザ(user) 他人(other) //message:メッセージ本文
@@ -90,12 +107,27 @@ const loadChatLogs = ( logs )=>{
 	})
 };
 
-const moveRooms = ( roomId,roomName )=>{
+const reloadChatLogs = ()=>{
 	const method = 'post';
-	window.roomName.innerText = roomName;
-	socket.emit( 'moveRooms', roomId );
+	const body = new FormData();
+	body.append('room_id',currentRoom);
+	fetch('move_room.php',{
+		method,
+		body
+	})
+	.then( response=> response.json() )
+	.then( logs=> { loadChatLogs( logs ); } )
+	.catch( error=> { throw error; } );
+}
+socket.on( 'reload' , ()=>{ reloadChatLogs() });
 
+const moveRooms = ( roomId,roomName )=>{
 	console.log(`Room ID ${roomId}: ${roomName}に移動します。`)
+	window.currentRoom = roomId;
+	socket.emit( 'moveRooms', currentRoom );
+	window.roomName.innerText = roomName;
+
+	const method = 'post';
 	const body = new FormData();
 	body.append('room_id',roomId);
 	fetch('move_room.php',{
@@ -104,29 +136,18 @@ const moveRooms = ( roomId,roomName )=>{
 	})
 	.then( response=> response.json() )
 	.then( logs=> { loadChatLogs( logs ); } )
-	.catch( error=> { console.log(error); } );
+	.catch( error=> { throw error; } );
 }
 
-let showRooms = ()=>socket.emit('rooms',function(i){console.log(i)});
 
 
-const appendMoveRooms = ()=>{
-	rooms().forEach(
-		room=>{
-			room.onclick = ()=>{
-				moveRooms( room.dataset.room, room.innerText );
-				switchRoomMenu();
-			};
-		}
-	);
-}
 const loadRoomList = ()=>{
 	const method = 'post';
 	return fetch('room_list.php',{
 		method,
 	})
 	.then( response=> response.json() )
-	.catch( error=> { console.log(error) } );
+	.catch( error=> { throw error } );
 }
 const addRoomList = ()=>{
 	roomList.innerHTML = '';
@@ -143,6 +164,16 @@ const addRoomList = ()=>{
 		)
 	})
 	.then( ()=>{ appendMoveRooms() } )
+}
+const appendMoveRooms = ()=>{
+	rooms().forEach(
+		room=>{
+			room.onclick = ()=>{
+				moveRooms( room.dataset.room, room.innerText );
+				switchRoomMenu();
+			};
+		}
+	);
 }
 const switchRoomMenu = ()=>{
 	if(roomMenu.classList.contains('hide')){

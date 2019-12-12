@@ -26,6 +26,7 @@ $roomMenuFlag = empty($_SESSION['current_room']) ? "hide" : "";//JavaScriptのsw
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<!-- Font Awesome --> <script src="https://kit.fontawesome.com/2d2bcba3f8.js" crossorigin="anonymous"></script>
     <script src="http://ec2-52-195-2-97.ap-northeast-1.compute.amazonaws.com:8080/socket.io/socket.io.js"></script>
+    <script src="moment.js"></script>
 </head>
 <body>
 	<header id="headMenu" class="chatMenu shadow nonActive">
