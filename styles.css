@@ -269,9 +269,11 @@ button{
 
 .bubble .info{
 	position: absolute;
-	top: calc( 0 - 1.25em );
+	top: calc( 0px - 1.5em );
 	left: 0;
 	font-size: .75em;
+	white-space: nowrap;
+	width: 100%;
 }
 .bubble .info .talkUser{
 	text-align: left;	
@@ -288,7 +290,7 @@ button{
 	padding: .5em .75em;
 	max-width: calc(100% - 10px);
     text-align: left;
-    margin-top: 1.5em;
+    margin-top: 1em;
 }
 .bubble:before {
 	content: "";
