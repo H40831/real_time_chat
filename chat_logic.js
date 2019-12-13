@@ -89,7 +89,7 @@ const addLog = (who,name,message)=>{//who:ユーザ(user) 他人(other) //messag
 	const row = document.createElement('div');
 	row.classList.add(who,'row');
 	row.innerHTML = `
-	<p class="name">${name}<p>
+	<p class="talker">${name}<p>
 	<div class="whiteBox ${who} bubble">${message}</div>
 	`;
 	chatLog.appendChild(row);
