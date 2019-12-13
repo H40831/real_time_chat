@@ -267,9 +267,17 @@ button{
 	padding-left: calc(.25em + 10px);	
 }
 
-.talker{
-	display: inline;
+.bubble .info{
+	position: absolute;
+	top: calc( 0 - 1.25em );
+	left: 0;
 	font-size: .75em;
+}
+.bubble .info .talkUser{
+	text-align: left;	
+}
+.bubble .info .talkTime{
+	text-align: right;	
 }
 
 .bubble {
@@ -280,6 +288,7 @@ button{
 	padding: .5em .75em;
 	max-width: calc(100% - 10px);
     text-align: left;
+    margin-top: 1.5em;
 }
 .bubble:before {
 	content: "";

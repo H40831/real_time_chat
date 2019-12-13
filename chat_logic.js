@@ -85,12 +85,17 @@ const pushLog = (who,message)=> {//未作成
 	.catch( error=> { throw error } );
 };
 
-const addLog = (who,name,message)=>{//who:ユーザ(user) 他人(other) //message:メッセージ本文
+const addLog = (who,name,time,message)=>{//who:ユーザ(user) 他人(other) //message:メッセージ本文
 	const row = document.createElement('div');
 	row.classList.add(who,'row');
 	row.innerHTML = `
-	<p class="talker">${name}<p>
-	<div class="whiteBox ${who} bubble">${message}</div>
+	<div class="whiteBox ${who} bubble">
+		<p class="info">
+			<span class="talkUser">${name}</span>
+			<span class="talkTime">${time}</span>
+		<p>
+		${message}
+	</div>
 	`;
 	chatLog.appendChild(row);
 }
@@ -101,8 +106,8 @@ const loadChatLogs = ( logs )=>{
 
 	logs.forEach( log=>{
 		log.user_id === userId ?
-			addLog( 'user', log.user_name, log.talk_value ):
-			addLog( 'other', log.user_name, log.talk_value );
+			addLog( 'user', log.user_name, log.talk_time, log.talk_value ):
+			addLog( 'other', log.user_name, log.talk_time, log.talk_value );
 	})
 };
 
