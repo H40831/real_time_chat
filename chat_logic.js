@@ -43,7 +43,7 @@ const messageClear = ()=> {
 	messageArea.value = '';
 }
 
-const sendMessage = async ()=> {
+const sendMessage = ()=> {
 	/*PHP(PDO)
 	const method = 'post';
 	const body = messageFormData();
@@ -56,16 +56,16 @@ const sendMessage = async ()=> {
 	.catch( error=>{ throw error } );
 	*/
 	const data = {
-		talkValue: messageArea.value,
+		talkValue: messageArea.value.replace(/\r?\n/g, '\r\n'),
 		talkTime: moment().format('YYYY-MM-DD HH:mm:ss'),
 		userId: window.userId,
+		userName: window.nameArea.value,
 		roomId: window.currentRoom,
 	}
-	await socket.json.emit('sendMessage', data );
-	await reloadChatLogs();
+	socket.json.emit('sendMessage', data );
 }
 messageForm.onsubmit = ()=> {
-	if(currentRoom && messageArea.value){ 
+	if(currentRoom && nameArea.value && messageArea.value){ 
 		sendMessage();
 		messageArea.value = '';
 		console.log('送信成功')
@@ -148,8 +148,6 @@ const moveRooms = ( roomId,roomName )=>{
 	.then( ()=>{ logScrollBottom() } )
 	.catch( error=> { throw error; } );
 }
-
-
 
 const loadRoomList = ()=>{
 	const method = 'post';

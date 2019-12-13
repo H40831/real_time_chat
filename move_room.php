@@ -25,8 +25,19 @@ if( $isJoiningRoom ){
 		WHERE talk_logs.room_id = {$room_id} 
 		ORDER BY talk_time;"
 	);
-
-	echo ( json_encode($logs) );
+	
+	$result = [];
+	foreach($logs as $log) {
+		$talk_value = htmlspecialchars( $log['talk_value'] );
+		$result[] = [
+			'talk_id' => $log['talk_id'],
+			'talk_time' => $log['talk_time'],
+			'talk_value' => nl2br( $talk_value ),
+			'user_id' => $log['user_id'],
+			'user_name' => htmlspecialchars( $log['user_name'] ),
+		];
+	}
+	echo ( json_encode($result) );
 }else{
 	error_log( "Unexpected behavior: user_id_{$_SESSION['user_id']} is trying access to not joined room. (tryed connect to room_id_{$room_id}.)" );
 }
