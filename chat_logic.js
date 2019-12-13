@@ -50,7 +50,7 @@ const sendMessage = async ()=> {
 	console.log(...messageFormData().entries());//送信値チェック
 	messageClear();
 	fetch('chat_logic.php',{
-		method,
+		method, 
 		body
 	})
 	.catch( error=>{ throw error } );
@@ -65,9 +65,12 @@ const sendMessage = async ()=> {
 	await reloadChatLogs();
 }
 messageForm.onsubmit = ()=> {
-	if(messageArea.value){ 
+	if(currentRoom && messageArea.value){ 
 		sendMessage();
 		messageArea.value = '';
+		console.log('送信成功')
+	}else{
+		console.log('送信失敗')
 	}
 	return false;
 }
@@ -83,17 +86,12 @@ const pushLog = (who,message)=> {//未作成
 };
 
 const addLog = (who,message)=>{//who:ユーザ(user) 他人(other) //message:メッセージ本文
-	const isPositionBottom = chatLog.scrollTop + chatLog.clientHeight >= chatLog.scrollHeight - 30 ;//30は、最下行のテキストが読めるくらいの位置。
 	const row = document.createElement('div');
 	row.classList.add(who,'row');
 	row.innerHTML = `
 	<div class="whiteBox ${who} bubble">${message}</div>
 	`;
 	chatLog.appendChild(row);
-
-	if(isPositionBottom){//もしスクロール位置が最下部だったら、
-		chatLog.scrollTo(0,chatLog.scrollHeight);//新しい最下部までスクロールする。
-	}
 }
 
 const loadChatLogs = ( logs )=>{
@@ -107,7 +105,17 @@ const loadChatLogs = ( logs )=>{
 	})
 };
 
+const logPositionIsBottom = ()=>( chatLog.scrollTop + chatLog.clientHeight >= chatLog.scrollHeight - 30 );//30は、最下行のテキストが読めるくらいの位置。
+const logScrollHold = (currentScrollPosition)=>{
+	chatLog.scrollTo(0,currentScrollPosition);
+};
+const logScrollBottom = ()=>{
+	chatLog.scrollTo(0,chatLog.scrollHeight);
+};
+
 const reloadChatLogs = ()=>{
+	const wasBottom = logPositionIsBottom();
+	const scrollPosition = chatLog.scrollTop;
 	const method = 'post';
 	const body = new FormData();
 	body.append('room_id',currentRoom);
@@ -117,6 +125,7 @@ const reloadChatLogs = ()=>{
 	})
 	.then( response=> response.json() )
 	.then( logs=> { loadChatLogs( logs ); } )
+	.then( ()=>{ wasBottom ? logScrollBottom() : logScrollHold(scrollPosition) } )
 	.catch( error=> { throw error; } );
 }
 socket.on( 'reload' , ()=>{ reloadChatLogs() });
@@ -136,6 +145,7 @@ const moveRooms = ( roomId,roomName )=>{
 	})
 	.then( response=> response.json() )
 	.then( logs=> { loadChatLogs( logs ); } )
+	.then( ()=>{ logScrollBottom() } )
 	.catch( error=> { throw error; } );
 }
 
