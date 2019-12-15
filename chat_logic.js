@@ -90,14 +90,9 @@ const addLog = (who,data)=>{//who:ユーザ(user) 他人(other) //message:メッ
 	const row = document.createElement('div');
 	row.classList.add(who,'row');
 	row.innerHTML = `
-    <p class="talkInfo" id="log${data.talk_id}">
+    <p class="talkInfo" id="log${data.talk_id}" data-name="${data.user_name}">
         <span class="talkTime">${formatedTalkTime}</span>
     </p>
-    <style>
-        #log${data.talk_id}.talkInfo:before{
-            content: "${data.user_name}";
-        }
-    </style>
 	<div class="whiteBox ${who} bubble">
 		${data.talk_value}
 	</div>

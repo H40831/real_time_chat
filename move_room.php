@@ -34,7 +34,7 @@ if( $isJoiningRoom ){
 			'talk_time' => $log['talk_time'],
 			'talk_value' => nl2br( $talk_value ),
 			'user_id' => $log['user_id'],
-			'user_name' => htmlspecialchars( $log['user_name'] ),
+			'user_name' => htmlspecialchars($log['user_name']),
 		];
 	}
 	echo ( json_encode($result) );
