@@ -267,22 +267,19 @@ button{
 	padding-left: calc(.25em + 10px);	
 }
 
-.bubble .info{
-	position: absolute;
-	top: calc( 0px - 1.5em );
-	left: 0;
+.talkInfo{
 	font-size: .75em;
-	white-space: nowrap;
-	display: inline-flex;
-	justify-content: space-between;
-	padding: 0 .75em;
+	padding: 0 .25em;
+    line-height: 2;
 }
-.bubble .info .talkUser{
-	margin-right: 1em;
-	text-align: left;	
+.user .talkInfo{
+    text-align: right;
 }
-.bubble .info .talkTime{
-	text-align: right;	
+.talkInfo .talkTime{
+    font-size: .5em;
+}
+.talkInfo:before{
+	margin-right: .75em;
 }
 
 .bubble {
@@ -293,7 +290,6 @@ button{
 	padding: .5em .75em;
 	max-width: calc(100% - 10px);
     text-align: left;
-    margin-top: 1em;
 }
 .bubble:before {
 	content: "";

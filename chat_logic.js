@@ -85,16 +85,21 @@ const pushLog = (who,message)=> {//未作成
 	.catch( error=> { throw error } );
 };
 
-const addLog = (who,name,time,message)=>{//who:ユーザ(user) 他人(other) //message:メッセージ本文
+const addLog = (who,data)=>{//who:ユーザ(user) 他人(other) //message:メッセージ本文
+    const formatedTalkTime = moment(data.talk_time).format("MM/DD HH:mm")
 	const row = document.createElement('div');
 	row.classList.add(who,'row');
 	row.innerHTML = `
+    <p class="talkInfo" id="log${data.talk_id}">
+        <span class="talkTime">${formatedTalkTime}</span>
+    </p>
+    <style>
+        #log${data.talk_id}.talkInfo:before{
+            content: "${data.user_name}";
+        }
+    </style>
 	<div class="whiteBox ${who} bubble">
-		<p class="info">
-			<span class="talkUser">${name}</span>
-			<span class="talkTime">${time}</span>
-		<p>
-		${message}
+		${data.talk_value}
 	</div>
 	`;
 	chatLog.appendChild(row);
@@ -106,8 +111,8 @@ const loadChatLogs = ( logs )=>{
 
 	logs.forEach( log=>{
 		log.user_id === userId ?
-			addLog( 'user', log.user_name, log.talk_time, log.talk_value ):
-			addLog( 'other', log.user_name, log.talk_time, log.talk_value );
+			addLog( 'user', log ):
+			addLog( 'other', log );
 	})
 };
 
