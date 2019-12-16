@@ -155,7 +155,7 @@ button{
 }
 #roomMenuButton{
 	position: absolute;
-	top: 96.25vh;
+	top: 96.25%;
 	z-index: 2;
 	width: 90%;
 	margin: 0 5%;
@@ -180,7 +180,7 @@ button{
     box-shadow: rgba(0, 0, 0, 0.2) 0em 1em 1em -1em;
 }
 #roomMenuButton.hide{
-	top: 5vh;
+	top: 5%;
 }
 @media screen and (orientation: landscape){
 	#roomMenuButton{
@@ -249,6 +249,8 @@ button{
 	margin-right: .5em;
 	width: calc(100% - 3.5em);
 	max-height: 25em;
+	min-height: 3em;
+	align-self: stretch;
 }
 #nameArea{
 	width: calc(100% - 6.95em);
