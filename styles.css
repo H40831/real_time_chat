@@ -132,7 +132,7 @@ button{
 }
 
 #roomMenu{
-    height: 91.5%;
+    height: calc(94% - 1em);
     position: absolute;
     top: 6%;
     z-index: 1;
@@ -153,7 +153,7 @@ button{
 }
 #roomMenuButton{
 	position: absolute;
-	top: 96.25%;
+	top: calc(94% + .75em);
 	z-index: 2;
 	width: 90%;
 	margin: 0 5%;
