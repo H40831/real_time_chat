@@ -1,4 +1,5 @@
 const socket = io.connect('ec2-52-195-2-97.ap-northeast-1.compute.amazonaws.com:8080');
+const body = document.getElementsByTagName('body')[0];
 const roomMenu = document.getElementById('roomMenu');
 const roomMenuButton = document.getElementById('roomMenuButton');
 const rooms = ()=> (Array.from( document.getElementsByClassName('rooms') ));
@@ -16,6 +17,22 @@ socket.on( 'getCurrentRoom' , ()=>{
 	if( typeof currentRoom === 'undefined' ){ return }
 	moveRooms(currentRoom,currentRoomName)
 });
+
+const fitViewHeight = (isResize)=>{
+	const style = isResize ?
+		document.getElementsByTagName('style')[0]:
+		document.createElement('style');
+	style.innerText = `
+		html,body{
+			height: ${window.innerHeight}px;
+		}
+	`;
+	if( !isResize ){
+		body.insertBefore(style,headMenu);
+	}
+}
+fitViewHeight(0);
+window.addEventListener('resize', ()=>{fitViewHeight(1)});
 
 const showRooms = ()=>socket.emit('rooms',function(i){console.log(i)});
 
