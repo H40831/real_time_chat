@@ -38,21 +38,31 @@ $roomMenuFlag = empty($_SESSION['current_room']) ? "hide" : "";//JavaScriptのsw
 	<section id="roomMenu" class="<?= $roomMenuFlag ?>"><!-- class属性の値はPHPの$roomMenuFlagと、JavaScriptのswitchRoomMenu()で管理 -->
 		<ul id="roomList">
 		</ul>
+		<button id="addRoom" class="fas fa-plus floatButton shadow" data-label="Room"></button>
+		<div id="addRoomForm" class="hide">
+			<p class="row">
+				<span class="formName">RoomName</span>
+				<input id="" type="text" class="whiteBox shadow">
+			</p>
+			<p class="row">
+				<span class="formName">Member</span>
+				<input id="" type="text" class="whiteBox shadow">
+			</p>
+		</div>
 	</section>
 
 	<section id="chatWindow">
-		<div id="chatLog">
-
-		</div>
+		<div id="chatLog"></div>
 
 		<form id="messageForm" class="chatMenu shadow nonActive">
 			<p class="row">
-				<span class="formName"></span>
+				<span class="formName">Name</span>
 				<input id="nameArea" type="text" name="name" class="whiteBox shadow">
 			</p>
 			<p id="messageAreaRow" class="row">
 			    <textarea id="messageArea" name="message" class="whiteBox shadow"></textarea>
-			    <button id="sendMessage" class="whiteBox shadow button">発言</button>
+			    <button id="sendMessage" class="whiteBox shadow button far fa-comment"></button>
+		    	
 		    </p>
 		</form>
 

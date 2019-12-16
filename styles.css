@@ -23,7 +23,7 @@ small{
 }
 .shadow:focus,
 .shadow:hover{
-	box-shadow: rgba(0, 0, 0, 0.3) 0px 0px .75em;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 0px .75em;
 }
 .shadow.nonActive{
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1em;
@@ -39,6 +39,13 @@ small{
 .whiteBox.button{
 	font-size: .8em;
 }
+.floatButton{
+	font-size: 1.5em;
+	height: 2em;
+	width: 2em;
+	border-radius: 50%;
+	position: fixed;
+}
 button{
 	outline: none;
 }
@@ -51,6 +58,7 @@ button{
         opacity:initial;
     }
 }
+
 
 /***** login.php *****/
 
@@ -110,12 +118,12 @@ button{
 
 .chatMenu{
 	width: 100%;
-	padding: 5%;
+	padding: 3.75% 5%;
 	background-color: #fff;
 }
 @media screen and (orientation: landscape){
 	.chatMenu{
-		padding: 2.5vh 12.5%;
+		padding: 2.5% 12.5%;
 	}
 }
 #headMenu{
@@ -159,10 +167,6 @@ button{
 	text-align: center;
 	color: #666;
 }
-#roomMenuButton:before{
-	position: relative;
-	left: .5px;
-}
 #roomMenuButton:after{
 	content: '';
 	width: 1.5em;
@@ -201,6 +205,96 @@ button{
 }
 #roomList li::-webkit-scrollbar {
 	display:none;
+}
+#roomMenu .floatButton{
+	color: #fff;
+	background-color: #555;
+	right: 10%;
+    bottom: 7.5%;
+}
+@media screen and (orientation: landscape){
+	#roomMenu .floatButton{
+		right: 15%;
+	}
+}
+.hide#roomMenu .floatButton{
+	bottom: 100%;
+	opacity: 0;
+}
+#roomMenu .floatButton:after{
+	content: attr(data-label);
+    position: absolute;
+    top: -1.25em;
+    left: 0;
+    right: 0;
+    color: #555;
+    font-size: .5em;
+    text-align: center;
+    white-space: nowrap;
+}
+#roomMenu .active.floatButton{
+	font-size: .8em;
+	right: 12.5%;
+}
+.active#addRoom{
+	bottom: 16.25%;
+}
+#addRoomCancel{
+	opacity: 0;
+}
+.active#addRoomCancel{
+	bottom: 9.5%;
+	opacity: 1;
+}
+@media screen and (orientation: landscape){
+	#roomMenu .active.floatButton{
+		font-size: 1em;
+		bottom: 8.75%;
+	}
+	#roomMenu .active#addRoom{
+		right: 18.5%;
+	}
+	#roomMenu .active#addRoomCancel{
+		right: 12.5%;
+	}
+}
+.hide#roomMenu .active.floatButton{
+	bottom: 100%;
+}
+#addRoomForm{
+	position: fixed;
+	bottom: 7.5%;
+	width: calc(100% - 5em);
+	overflow: hidden;
+	padding: .75em .5em .75em 0;
+	transition: transform 2s;
+	transition: bottom .2s;
+}
+@media screen and (orientation: landscape){
+	#addRoomForm{
+		width: calc(100% - 25% - 5em);
+	}
+}
+#addRoomForm .row {
+    margin-top: .5em;
+}
+#addRoomForm .formName{
+	display: inline-block;
+	line-height: 1;
+	text-align: right;
+	width: 6em;
+    font-size: .5em;
+    margin-right: 1em;
+}
+#addRoomForm input{
+	width: calc(100% - 5em);
+}
+#addRoomForm.hide * {
+    transform: translateX(100%);
+    opacity: 0;
+}
+.hide#roomMenu #addRoomForm{
+	bottom: 100%;
 }
 
 /***** chat.php ボディ *****/
@@ -257,6 +351,9 @@ button{
 	#nameArea{
 		width: calc(50% - 6.95em);
 	}
+}
+#sendMessage:before{
+	font-size: 1.5em;
 }
 #chatLog{
 	padding: .5em 0;

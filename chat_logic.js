@@ -5,6 +5,8 @@ const roomMenuButton = document.getElementById('roomMenuButton');
 const rooms = ()=> (Array.from( document.getElementsByClassName('rooms') ));
 const roomList = document.getElementById('roomList');
 const roomName = document.getElementById('roomName');
+const addRoomButton = document.getElementById('addRoom');
+const addRoomForm = document.getElementById('addRoomForm');
 const chatLog = document.getElementById('chatLog');
 const messageForm = document.getElementById('messageForm');
 const messageFormData = ()=> new FormData(messageForm);
@@ -230,3 +232,37 @@ roomMenuButton.onclick = ()=> {
 loadInitialInfo()
 .then( ()=>{ switchRoomMenu() } );
 
+const toggleAddRoomForm = ()=>{
+	addRoomForm.classList.toggle("hide");
+};
+
+window.addRoomCancelButton = document.createElement('button');
+addRoomCancelButton.id = "addRoomCancel";
+addRoomCancelButton.className = "fas fa-times floatButton shadow";
+addRoomCancelButton.dataset.label = "Cancel";
+
+const toggleAddRoomCancelButton = ()=>{
+	const addRoomCancelButton = document.getElementById('addRoomCancel');
+	if(addRoomCancelButton === null){
+		roomMenu.insertBefore( window.addRoomCancelButton, addRoomForm );
+		const addRoomCancelButton = document.getElementById('addRoomCancel');
+		window.setTimeout(
+			()=>{addRoomCancelButton.classList.add('active')},
+			0
+		)
+
+	}else{
+		addRoomCancelButton.classList.remove('active');
+
+		window.setTimeout(
+			()=>{addRoomCancelButton.parentNode.removeChild( addRoomCancelButton )},
+			200
+		)
+		
+	}
+};
+addRoomButton.onclick = ()=> {
+	addRoom.classList.toggle('active');
+	toggleAddRoomForm();
+	toggleAddRoomCancelButton();
+};
