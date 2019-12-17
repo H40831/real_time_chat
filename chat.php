@@ -46,11 +46,11 @@
 			<div class="rows">
 				<p class="row">
 					<span class="top formName">RoomName</span>
-					<input id="" type="text" class="whiteBox shadow">
+					<input id="roomNameArea" type="text" class="whiteBox shadow">
 				</p>
 				<p class="row">
 					<span class="top formName">Member</span>
-					<input id="" type="text" class="whiteBox shadow">
+					<input id="roomMemberArea" type="text" class="whiteBox shadow">
 				</p>
 			</div>
 			<div id="addRoomButtons">
@@ -65,7 +65,7 @@
 		<form id="messageForm" class="chatMenu shadow nonActive">
 			<p class="row">
 				<span class="formName">Name</span>
-				<input id="nameArea" type="text" name="name" class="whiteBox shadow">
+				<input id="nameArea" type="text" name="name" class="whiteBox shadow" pattern="[^,]">
 			</p>
 			<p id="messageAreaRow" class="row">
 			    <textarea id="messageArea" name="message" class="whiteBox shadow"></textarea>

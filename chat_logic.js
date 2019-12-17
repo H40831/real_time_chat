@@ -1,3 +1,4 @@
+
 const socket = io.connect('ec2-52-195-2-97.ap-northeast-1.compute.amazonaws.com:8080');
 const body = document.getElementsByTagName('body')[0];
 const roomMenu = document.getElementById('roomMenu');
@@ -7,12 +8,17 @@ const roomList = document.getElementById('roomList');
 const roomName = document.getElementById('roomName');
 const addRoomButton = document.getElementById('addRoom');
 const addRoomForm = document.getElementById('addRoomForm');
+const roomNameArea = document.getElementById('roomNameArea');
+const roomMemberArea = document.getElementById('roomMemberArea');
 const chatLog = document.getElementById('chatLog');
 const messageForm = document.getElementById('messageForm');
 const messageFormData = ()=> new FormData(messageForm);
 const messageArea = document.getElementById('messageArea');
 const nameArea = document.getElementById('nameArea');
 const sendMessageButton = document.getElementById('sendMessage');
+
+
+
 
 socket.on( 'notice' , notice=>{ console.log(notice) } );
 socket.on( 'getCurrentRoom' , ()=>{
@@ -63,17 +69,6 @@ const messageClear = ()=> {
 }
 
 const sendMessage = ()=> {
-	/*PHP(PDO)
-	const method = 'post';
-	const body = messageFormData();
-	console.log(...messageFormData().entries());//送信値チェック
-	messageClear();
-	fetch('chat_logic.php',{
-		method, 
-		body
-	})
-	.catch( error=>{ throw error } );
-	*/
 	const data = {
 		talkValue: messageArea.value.replace(/\r?\n/g, '\r\n'),
 		talkTime: moment().format('YYYY-MM-DD HH:mm:ss'),
@@ -283,5 +278,25 @@ addRoomButton.onclick = ()=> {
 
 const addRoom = ()=>{
 	console.log('ルームを作成します');
+	if(!roomNameArea.value){
+		console.log('送信失敗');
+		return false;
+	}
+	const roomMembers = roomMemberArea.value.split(',');
+	const method = 'post';
+	const body = new FormData();
+	body.append('room_name',roomNameArea.value);
+	body.append('room_members',JSON.stringify(roomMembers));
+	console.log(...body.entries());//送信値チェック
+	roomNameArea.value = "";
+	roomMemberArea.value = "";
+	debugger;
+	fetch('chat_logic.php',{
+		method, 
+		body
+	})
+	.then( response=> response.json() )
+	.then( roomData=> {console.log(roomData)} )
+	.catch( error=>{ throw error } );
 }
 
