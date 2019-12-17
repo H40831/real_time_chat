@@ -290,8 +290,7 @@ const addRoom = ()=>{
 	console.log(...body.entries());//送信値チェック
 	roomNameArea.value = "";
 	roomMemberArea.value = "";
-	debugger;
-	fetch('chat_logic.php',{
+	fetch('add_room.php',{
 		method, 
 		body
 	})
