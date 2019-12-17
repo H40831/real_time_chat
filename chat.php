@@ -1,18 +1,23 @@
 <?php
-session_start();
-ini_set('display_errors', 1);
-error_reporting(-1);
+	session_start();
+	ini_set('display_errors', 1);
+	error_reporting(-1);
 
-if (!isset($_SESSION['user_id'])) {
-	header('Location: http://'.$_SERVER['HTTP_HOST'].'/login.php');
-    exit;
-}
+	if (!isset($_SESSION['user_id'])) {
+		header('Location: http://'.$_SERVER['HTTP_HOST'].'/login.php');
+	    exit;
+	}
 
-require_once __DIR__."/vendor/autoload.php";
-require_once __DIR__."/db_access.php";
+	require_once __DIR__."/vendor/autoload.php";
+	require_once __DIR__."/db_access.php";
 
-$roomMenuFlag = empty($_SESSION['current_room']) ? "hide" : "";//JavaScriptのswitchRoomMenu()が発動するため、この時点ではフラグが逆になる。
+	$roomMenuFlag = empty($_SESSION['current_room']) ? "hide" : "";//JavaScriptのswitchRoomMenu()が発動するため、この時点ではフラグが逆になる。
 
+	function css($paths){
+    	forEach($paths as $path){
+    		echo "<link rel='stylesheet' type='text/css' href='$path'>";
+    	}
+    }
 ?>
 
 <!DOCTYPE html>
@@ -22,8 +27,7 @@ $roomMenuFlag = empty($_SESSION['current_room']) ? "hide" : "";//JavaScriptのsw
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>リアルタイムチャット</title>
 	<link rel="shortcut icon" href="favicon.ico">
-	<link rel="stylesheet" type="text/css" href="ress.css">
-	<link rel="stylesheet" type="text/css" href="styles.css">
+	<?php css(["ress.css","common.css","chat_header.css","chat_body.css"]); ?>
 	<!-- Font Awesome --> <script src="https://kit.fontawesome.com/2d2bcba3f8.js" crossorigin="anonymous"></script>
     <script src="http://ec2-52-195-2-97.ap-northeast-1.compute.amazonaws.com:8080/socket.io/socket.io.js"></script>
     <script src="moment.js"></script>
@@ -38,16 +42,20 @@ $roomMenuFlag = empty($_SESSION['current_room']) ? "hide" : "";//JavaScriptのsw
 	<section id="roomMenu" class="<?= $roomMenuFlag ?>"><!-- class属性の値はPHPの$roomMenuFlagと、JavaScriptのswitchRoomMenu()で管理 -->
 		<ul id="roomList">
 		</ul>
-		<button id="addRoom" class="fas fa-plus floatButton shadow" data-label="Room"></button>
-		<div id="addRoomForm" class="hide">
-			<p class="row">
-				<span class="formName">RoomName</span>
-				<input id="" type="text" class="whiteBox shadow">
-			</p>
-			<p class="row">
-				<span class="formName">Member</span>
-				<input id="" type="text" class="whiteBox shadow">
-			</p>
+		<div id="addRoomForm">
+			<div class="rows">
+				<p class="row">
+					<span class="top formName">RoomName</span>
+					<input id="" type="text" class="whiteBox shadow">
+				</p>
+				<p class="row">
+					<span class="top formName">Member</span>
+					<input id="" type="text" class="whiteBox shadow">
+				</p>
+			</div>
+			<div id="addRoomButtons">
+				<button id="addRoom" class="fas fa-plus floatButton shadow center" data-label="Room"></button>
+			</div>	
 		</div>
 	</section>
 

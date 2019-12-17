@@ -233,18 +233,19 @@ loadInitialInfo()
 .then( ()=>{ switchRoomMenu() } );
 
 const toggleAddRoomForm = ()=>{
-	addRoomForm.classList.toggle("hide");
+	addRoomForm.classList.toggle("active");
 };
 
 window.addRoomCancelButton = document.createElement('button');
 addRoomCancelButton.id = "addRoomCancel";
-addRoomCancelButton.className = "fas fa-times floatButton shadow";
+addRoomCancelButton.className = "fas fa-ban floatButton shadow center";
 addRoomCancelButton.dataset.label = "Cancel";
 
 const toggleAddRoomCancelButton = ()=>{
+	const addRoomButtons = document.getElementById('addRoomButtons');
 	const addRoomCancelButton = document.getElementById('addRoomCancel');
 	if(addRoomCancelButton === null){
-		roomMenu.insertBefore( window.addRoomCancelButton, addRoomForm );
+		addRoomButtons.appendChild( window.addRoomCancelButton );
 		const addRoomCancelButton = document.getElementById('addRoomCancel');
 		window.setTimeout(
 			()=>{addRoomCancelButton.classList.add('active')},
@@ -262,7 +263,6 @@ const toggleAddRoomCancelButton = ()=>{
 	}
 };
 addRoomButton.onclick = ()=> {
-	addRoom.classList.toggle('active');
 	toggleAddRoomForm();
 	toggleAddRoomCancelButton();
 };

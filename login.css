@@ -1,0 +1,42 @@
+/***** login.php *****/
+#loginWindow{
+	width: 50%;
+	height: 50%;
+    border: solid 2px #ffffff;
+	background: linear-gradient(#efefef,#eeeeee);
+	border-radius: .75em;
+	text-align: center;
+	min-height: 200px;
+	min-width: 300px;
+}
+#loginWindow .row{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: .5em;
+}
+#loginWindow .formName{
+	width: 3em;
+}
+#pw{
+	position: relative;
+}
+#showPwButton{
+	transition: right 0s;
+	position: absolute;
+	right: 0;
+	height: calc(2em + 2px);
+	padding: .25em .5em;
+}
+#showPwButton.fa-eye{
+	right: 1px;
+}
+
+#loginFormMessage{
+	color: red;
+    vertical-align: text-top;
+    line-height: 1;
+}
+#loginButton{
+	margin-right: 1em;
+}

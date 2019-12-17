@@ -1,0 +1,79 @@
+/***** 共通スタイル *****/
+html,body{
+	width: 100%;
+    font-family: -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        'Hiragino Sans',
+        'Hiragino Kaku Gothic ProN',
+        Meiryo,
+        sans-serif;
+    font-weight: 500;
+}
+*{
+	transition: .2s;
+	opacity: .95;
+	box-sizing: border-box;
+}
+small{
+	font-size: .5em;
+}
+.shadow{
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px .5em;
+}
+.shadow:focus,
+.shadow:hover{
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 0px .75em;
+}
+.shadow.nonActive{
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1em;
+}
+.whiteBox{
+	border-radius: .25em;
+	outline: none;
+	padding: .25em .5em;
+	background-color: #fff;
+	background: linear-gradient(#ffffff,#fdfdfd);
+	border: 1px solid #ddd;
+}
+.whiteBox.button{
+	font-size: .8em;
+}
+.floatButton{
+	font-size: 1.5em;
+	height: 2em;
+	width: 2em;
+	border-radius: 50%;
+	position: fixed;
+}
+button{
+	outline: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:initial;
+    }
+}
+
+.formName{
+	display: inline-block;
+	font-size: .5em;
+	margin-right: 1.25em;
+    text-align: right;
+    line-height: 1;
+}
+.top.formName{
+	display: block;
+	text-align: left;
+	line-height: 2;
+}
+.center{/*このクラスを使うときは、親要素に position: relative; を指定すること！*/
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}

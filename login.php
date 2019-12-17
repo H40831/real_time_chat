@@ -5,7 +5,11 @@
 		header('Location: http://'.$_SERVER['HTTP_HOST'].'/chat.php');
         exit;
     }
-
+    function css($paths){
+    	forEach($paths as $path){
+    		echo "<link rel='stylesheet' type='text/css' href='$path'>";
+    	}
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,8 +18,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>リアルタイムチャット</title>
 	<link rel="shortcut icon" href="favicon.ico">
-	<link rel="stylesheet" type="text/css" href="ress.css">
-	<link rel="stylesheet" type="text/css" href="styles.css">
+	<?php css(["ress.css","common.css","login.css"]); ?>
 	<!-- Font Awesome --> <script src="https://kit.fontawesome.com/2d2bcba3f8.js" crossorigin="anonymous"></script>
 </head>
 <body>

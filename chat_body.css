@@ -1,0 +1,111 @@
+/***** chat.php ボディ *****/
+
+#chatWindow{
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	background-color: #ccc;
+	position: absolute;
+	top: 0;
+	padding: 6vh 0 20vh;
+}
+#chatLog{
+	height: 100%;
+	overflow-y: scroll;
+	padding: .5em 0;
+}
+#messageForm{
+	display: flex;
+	flex-direction: column;
+    position: absolute;
+    bottom: 0;
+    min-height: 20%;
+}
+#messageForm .formName{
+	width: 4em;
+}
+
+#messageForm .row{
+	display: flex;
+	align-items: center;
+}
+.row#messageAreaRow{
+	flex-grow: 1;
+	align-items: flex-end;
+	margin-top: .5em;
+}
+#messageArea{
+	margin-right: .5em;
+	width: calc(100% - 3.5em);
+	max-height: 25em;
+	min-height: 3em;
+	align-self: stretch;
+}
+#nameArea{
+	width: calc(100% - 6.95em);
+	font-size: .8em;
+}
+@media screen and (orientation: landscape){
+	#nameArea{
+		width: calc(50% - 6.95em);
+	}
+}
+#sendMessage:before{
+	font-size: 1.5em;
+}
+#chatLog{
+	padding: .5em 0;
+	flex-shrink: 1;
+}
+#chatLog .row{
+	box-sizing: border-box;
+	padding: .25em;
+}
+#chatLog .user.row{
+	text-align: right;
+	padding-right: calc(.25em + 10px);
+}
+#chatLog .other.row{
+	padding-left: calc(.25em + 10px);
+}
+
+.talkInfo{
+	font-size: .75em;
+	padding: 0 .25em;
+    line-height: 1.875;
+}
+.user .talkInfo{
+    text-align: right;
+}
+.talkInfo .talkTime{
+    font-size: .75em;
+}
+.talkInfo:before{
+    content: attr(data-name);
+	margin-right: .5em;
+}
+
+.bubble {
+	display: inline-block;
+	position: relative;
+	border: none;
+	border-radius: .5em;
+	padding: .375em .75em;
+	max-width: calc(100% - 10px);
+    text-align: left;
+}
+.bubble:before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	margin-top: -3px;
+	border: 3px solid transparent;
+}
+.user.bubble:before {
+ 	left: 100%;
+ 	border-left: 10px solid #fff;
+}
+.other.bubble:before {
+	right: 100%;
+	border-right: 10px solid #fff;
+}
