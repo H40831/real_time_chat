@@ -34,8 +34,7 @@
 #roomMenu.shadow{
 	box-shadow: rgba(0, 0, 0, 0.2) 0em 1em 1em -1em;
 }
-#roomMenu.hide,
-#roomMenu.hide *{
+#roomMenu.hide{
 	height: 0;
 	padding-top: 0;
 	padding-bottom: 0;
@@ -44,6 +43,7 @@
 #roomMenu.hide *{
 	opacity: 0;
 }
+
 #roomMenuButton{
 	position: absolute;
 	top: calc(100% - 1.25em);
@@ -96,7 +96,7 @@
 #addRoomForm{
 	display: flex;
 	position: fixed;
-	bottom: 7.5%;
+	bottom: 3.75%;
 	overflow: hidden;
 	padding: .75em 0;
 	transition: transform 2s;
@@ -106,6 +106,7 @@
 @media screen and (orientation: landscape){
 	#addRoomForm{
 		width: calc(100% - (12.5% * 2));
+		bottom: 7.5%;
 	}
 }
 
@@ -115,11 +116,11 @@
 	padding: .75em;
 	overflow: hidden;
 }
-.row{
+#addRoomForm .row{
 	transform: scaleX(0) translateX(100%);
 	opacity: 0;
 }
-.active .row{
+#addRoomForm.active .row{
 	transform: scaleX(1) translateX(0%);
 	opacity: .95;
 }
@@ -133,18 +134,23 @@
 #addRoomButtons{
 	position: relative;
 	flex-basis: 3em;
-	margin: 0 .75em;
+	margin-right: .75em;
 }
 #addRoomButtons .floatButton{
 	color: #fff;
 	background-color: #555;
 	position: absolute;
-    top: 2.5em;
+    top: 3em;
+}
+@media screen and (orientation: landscape){
+	#addRoomButtons .floatButton{
+		top: 2.5em;
+	}
 }
 #addRoomButtons .floatButton:after{
 	content: attr(data-label);
     position: absolute;
-    top: -1.25em;
+    top: -1.5em;
     left: 0;
     right: 0;
     color: #555;
@@ -170,33 +176,3 @@
 	opacity: .95;
 	transform: scale(.6) translate(-82.5%,-45%);
 }
-.hide #addRoomForm{
-	bottom: 100%;
-	opacity: 0;
-}
-/*
-#addRoomButtons{
-	display: flex;
-    align-items: flex-end;
-    flex-direction: column;
-}
-@media screen and (orientation: landscape){
-	#addRoomButtons{
-		flex-direction: row;
-	}
-}
-
-#addRoomButtons .active.floatButton{
-	font-size: .8em;
-}
-@media screen and (orientation: landscape){
-	#addRoomButtons .active.floatButton{
-		font-size: 1em;
-	}
-}
-#addRoomCancel{
-	position: relative;
-	right: 2em;
-}
-
-*/

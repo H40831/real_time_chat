@@ -236,33 +236,52 @@ const toggleAddRoomForm = ()=>{
 	addRoomForm.classList.toggle("active");
 };
 
-window.addRoomCancelButton = document.createElement('button');
-addRoomCancelButton.id = "addRoomCancel";
-addRoomCancelButton.className = "fas fa-ban floatButton shadow center";
-addRoomCancelButton.dataset.label = "Cancel";
+window.addRoomCancelButtonElement = document.createElement('button');
+addRoomCancelButtonElement.id = "addRoomCancel";
+addRoomCancelButtonElement.className = "fas fa-ban floatButton shadow center";
+addRoomCancelButtonElement.dataset.label = "Cancel";
 
 const toggleAddRoomCancelButton = ()=>{
 	const addRoomButtons = document.getElementById('addRoomButtons');
 	const addRoomCancelButton = document.getElementById('addRoomCancel');
 	if(addRoomCancelButton === null){
-		addRoomButtons.appendChild( window.addRoomCancelButton );
-		const addRoomCancelButton = document.getElementById('addRoomCancel');
+		addRoomButtons.appendChild( addRoomCancelButtonElement );
+		window.addRoomCancelButton = document.getElementById('addRoomCancel');
 		window.setTimeout(
-			()=>{addRoomCancelButton.classList.add('active')},
+			()=>{window.addRoomCancelButton.classList.add('active')},
 			0
 		)
+		window.addRoomCancelButton = document.getElementById('addRoomCancel');
+
+		addRoomButton.onclick = ()=> {
+			addRoom();
+		}
+		window.addRoomCancelButton.onclick = ()=>{
+			toggleAddRoomForm();
+			toggleAddRoomCancelButton();
+		}
 
 	}else{
 		addRoomCancelButton.classList.remove('active');
-
 		window.setTimeout(
 			()=>{addRoomCancelButton.parentNode.removeChild( addRoomCancelButton )},
 			200
 		)
-		
+		window.addRoomCancelButton = null;
+
+		addRoomButton.onclick = ()=> {
+			toggleAddRoomForm();
+			toggleAddRoomCancelButton();
+		};
 	}
+
 };
 addRoomButton.onclick = ()=> {
-	toggleAddRoomForm();
-	toggleAddRoomCancelButton();
+			toggleAddRoomForm();
+			toggleAddRoomCancelButton();
 };
+
+const addRoom = ()=>{
+	console.log('ルームを作成します');
+}
+

@@ -33,6 +33,7 @@
 	flex-grow: 1;
 	align-items: flex-end;
 	margin-top: .5em;
+	justify-content: space-between;
 }
 #messageArea{
 	margin-right: .5em;
@@ -40,9 +41,10 @@
 	max-height: 25em;
 	min-height: 3em;
 	align-self: stretch;
+	flex-grow: 2;
 }
 #nameArea{
-	width: calc(100% - 6.95em);
+	width: calc(100% - 6.5em);
 	font-size: .8em;
 }
 @media screen and (orientation: landscape){
@@ -52,6 +54,7 @@
 }
 #sendMessage:before{
 	font-size: 1.5em;
+    opacity: .75;
 }
 #chatLog{
 	padding: .5em 0;
