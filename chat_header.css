@@ -2,12 +2,12 @@
 
 .chatMenu{
 	width: 100%;
-	padding: 3.75% 5%;
+	padding: 1rem 1.5rem;
 	background-color: #fff;
 }
 @media screen and (orientation: landscape){
 	.chatMenu{
-		padding: 2.5% 12.5%;
+		padding: 1.75rem 12.5rem;
 	}
 }
 #headMenu{

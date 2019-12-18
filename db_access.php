@@ -17,13 +17,13 @@ class MySql { #元ネタ→ https://www.geek.sc/archives/458
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_EMULATE_PREPARES => false,
         ];
-
     }
     public function query($sql){
         try{
             $this->db = new PDO ($this->dsn, $this->id, $this->pw, $this->option);
             $this->sql = $this->db->query($sql);
             $this->data = $this->sql->fetchAll(PDO::FETCH_ASSOC); #クエリ結果を連想配列で取得して、
+            $this->lastInsertId = $this->db->lastInsertId();
             return $this->data; #それを返り値にする。
 
         } catch (PDOException $err) {
@@ -51,6 +51,8 @@ class MySql { #元ネタ→ https://www.geek.sc/archives/458
             }
             $this->sql->execute();
 
+            $this->lastInsertId = $this->db->lastInsertId();
+
             return $this->sql->fetchAll(PDO::FETCH_ASSOC); #クエリ結果を連想配列で取得して、それを返り値にする。
 
         } catch (PDOException $err) {
@@ -67,4 +69,8 @@ class MySql { #元ネタ→ https://www.geek.sc/archives/458
             return $this->prepare($sql,...$prepares); # preparesの中身が1つ以上 (=プレースホルダが有る) なら、prepare() を実行。
         }
     }
+    public function lastInsertId(){
+        return $this->lastInsertId;
+    }
+
 };

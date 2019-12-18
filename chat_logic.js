@@ -278,14 +278,16 @@ addRoomButton.onclick = ()=> {
 
 const addRoom = ()=>{
 	console.log('ルームを作成します');
-	if(!roomNameArea.value){
+	const roomName = roomNameArea.value;
+	if(!roomName){
 		console.log('送信失敗');
 		return false;
 	}
-	const roomMembers = roomMemberArea.value.split(',');
+	const roomMembers = roomMemberArea.value.split(",").filter(n=>n);
 	const method = 'post';
 	const body = new FormData();
-	body.append('room_name',roomNameArea.value);
+	body.append('adder_id',userId);
+	body.append('room_name',roomName);
 	body.append('room_members',JSON.stringify(roomMembers));
 	console.log(...body.entries());//送信値チェック
 	roomNameArea.value = "";
@@ -295,7 +297,8 @@ const addRoom = ()=>{
 		body
 	})
 	.then( response=> response.json() )
-	.then( roomData=> {console.log(roomData)} )
+	.then( addedRoom=> { moveRooms( addedRoom, roomName ) } )
+	.then( ()=>{switchRoomMenu()} )
 	.catch( error=>{ throw error } );
 }
 
