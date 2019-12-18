@@ -20,8 +20,54 @@
 	padding-top: 0;
 	padding-bottom: 0;
 }
+#headMenu *{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+#headMenu .row{
+	display: flex;
+}
+#headMenu .buttons{
+	flex-shrink: 0;
+	padding: 0 .5em;
+}
 #roomName{
 	font-weight: bold;
+	flex-shrink: 1;
+}
+#addMemberButton{
+	flex-shrink: 0;
+	font-size: .75em;
+	margin: 0 .5em;
+}
+@media screen and (orientation: landscape){
+	#addMemberButton{
+		margin: 0 2em;
+	}
+}
+
+#addMemberForm{
+	z-index: 1;
+	position: absolute;
+	background-color: inherit;
+	top: 2.5em;
+	padding-top: 1rem;
+}
+.hide#addMemberForm{
+	top: 0em;
+}
+#addMemberArea{
+	margin-left: .25em;
+	width: calc(100% - 2.5em);
+}
+#addMemberSubmit{
+	font-size: 1em;
+}
+@media screen and (orientation: landscape){
+	#addMemberArea{
+		width: calc(100% - 4em);
+	}
 }
 
 #roomMenu{
@@ -39,7 +85,6 @@
 	padding-top: 0;
 	padding-bottom: 0;
 	border: none;
-	pointer-events: none;
 }
 #roomMenu.hide *{
 	opacity: 0;
@@ -68,7 +113,9 @@
     box-shadow: rgba(0, 0, 0, 0.2) 0em 1em 1em -1em;
 }
 #roomMenuButton.hide{
+	opacity: .95;
 	top: 2em;
+	pointer-events: auto;
 }
 @media screen and (orientation: landscape){
 	#roomMenuButton{
@@ -89,10 +136,17 @@
 	border-bottom: 1px solid #ddd;
 	font-weight: bold;
 	animation: fadeIn .2s;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 #roomList li::-webkit-scrollbar {
 	display:none;
 }
+#roomList li .button{
+	padding: 0 .75em;
+}
+
 
 #addRoomForm{
 	display: flex;

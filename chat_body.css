@@ -44,7 +44,7 @@
 	flex-grow: 2;
 }
 #nameArea{
-	width: calc(100% - 6.5em);
+	width: calc(100% - 8em);
 	font-size: .8em;
 }
 @media screen and (orientation: landscape){
@@ -53,8 +53,6 @@
 	}
 }
 #sendMessage:before{
-	font-size: 1.5em;
-    opacity: .75;
 }
 #chatLog{
 	padding: .5em 0;

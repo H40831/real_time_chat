@@ -6,6 +6,10 @@ const roomMenuButton = document.getElementById('roomMenuButton');
 const rooms = ()=> (Array.from( document.getElementsByClassName('rooms') ));
 const roomList = document.getElementById('roomList');
 const roomName = document.getElementById('roomName');
+const addMemberButton = document.getElementById('addMemberButton');
+const addMemberForm = document.getElementById('addMemberForm');
+const addMemberArea = document.getElementById('addMemberArea');
+const addMemberSubmit = document.getElementById('addMemberSubmit');
 const addRoomButton = document.getElementById('addRoom');
 const addRoomForm = document.getElementById('addRoomForm');
 const roomNameArea = document.getElementById('roomNameArea');
@@ -155,7 +159,7 @@ const moveRooms = ( roomId,roomName )=>{
 	window.currentRoom = roomId;
 	socket.emit( 'moveRooms', currentRoom );
 	window.roomName.innerText = roomName;
-
+	window.addMemberButton.classList.remove('hide');
 	const method = 'post';
 	const body = new FormData();
 	body.append('room_id',roomId);
@@ -187,6 +191,10 @@ const addRoomList = ()=>{
 				li.dataset.room = i.room_id;
 				li.className = "rooms";
 				li.innerHTML = i.room_name;
+				const exitButton = document.createElement('button');
+				exitButton.dataset.room = i.room_id;
+				exitButton.className = "far fa-times-circle exit";
+				li.appendChild(exitButton);
 				roomList.appendChild(li);
 			}
 		)
@@ -200,9 +208,20 @@ const appendMoveRooms = ()=>{
 				moveRooms( room.dataset.room, room.innerText );
 				switchRoomMenu();
 			};
+			const exitButton = room.getElementsByClassName('exit')[0];
+			exitButton.onclick = ()=>{
+				exitRoom( room.dataset.room );//次やる:exitRoom関数を作る
+				roomList.removeChild(room);
+			}
 		}
 	);
 }
+
+const exitRoom = ( roomId ){
+	//
+}
+
+
 const switchRoomMenu = ()=>{
 	if(roomMenu.classList.contains('hide')){
 		addRoomList();
@@ -283,12 +302,11 @@ const addRoom = ()=>{
 		console.log('送信失敗');
 		return false;
 	}
-	const roomMembers = roomMemberArea.value.split(",").filter(n=>n);
+	const addMembers = roomMemberArea.value.split(",").filter(n=>n);
 	const method = 'post';
 	const body = new FormData();
-	body.append('adder_id',userId);
 	body.append('room_name',roomName);
-	body.append('room_members',JSON.stringify(roomMembers));
+	body.append('add_members',JSON.stringify(addMembers));
 	console.log(...body.entries());//送信値チェック
 	roomNameArea.value = "";
 	roomMemberArea.value = "";
@@ -302,3 +320,33 @@ const addRoom = ()=>{
 	.catch( error=>{ throw error } );
 }
 
+const toggleAddMemberForm = ()=>{
+	addMemberForm.classList.toggle('hide');
+}
+addMemberButton.onclick = ()=>{ toggleAddMemberForm() }
+addMemberArea.onkeydown = e=> {
+	if(e.keyCode===27){//esc
+		toggleAddMemberForm();
+	}
+}
+
+const addMember = ()=>{
+	if ( !addMemberArea.value ) { return; }
+	const addMembers = addMemberArea.value.split(",").filter(n=>n);
+
+	const method = 'post';
+	const body = new FormData();
+	body.append('add_members',JSON.stringify(addMembers));
+	console.log(...body.entries());//送信値チェック
+	addMemberArea.value = "";
+	fetch('add_room.php',{
+		method, 
+		body
+	})
+	.then( response=> response.json() )
+	.then( addedMember=> { console.log( addedMember ) } )
+	.then( ()=>{toggleAddMemberForm()} )
+	.catch( error=>{ throw error } );
+}
+
+addMemberSubmit.onclick = ()=>{addMember()}

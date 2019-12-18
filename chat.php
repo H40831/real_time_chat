@@ -34,10 +34,21 @@
 </head>
 <body>
 	<header id="headMenu" class="chatMenu shadow nonActive">
-		<p id="roomName"></p>
-		<button id="logoutButton" class="whiteBox shadow button" onClick="location.href='logout.php'">ログアウト</button>
+		<div class="row">
+			<span id="roomName"></span>
+			<button id="addMemberButton" class="hide shadow icon button fas fa-plus"></button>
+		</div>
+		<div class="buttons">
+			<button id="preferenceButton" class="shadow icon button fas fa-cog"></button>
+			<button id="logoutButton" class="shadow icon button fas fa-sign-out-alt" onClick="location.href='logout.php'"></button>
+		</div>
 	</header>
 	<button id="roomMenuButton"></button><!-- class属性の値はJavaScriptのroomMenuToggle()で管理 -->
+
+	<section id="addMemberForm" class="chatMenu hide">
+		<input id="addMemberArea" class="whiteBox shadow" type="text">
+		<button id="addMemberSubmit"class="shadow icon button fas fa-user-plus"></button>
+	</section>
 
 	<section id="roomMenu" class="<?= $roomMenuFlag ?>"><!-- class属性の値はPHPの$roomMenuFlagと、JavaScriptのswitchRoomMenu()で管理 -->
 		<ul id="roomList">
@@ -69,7 +80,7 @@
 			</p>
 			<p id="messageAreaRow" class="row">
 			    <textarea id="messageArea" name="message" class="whiteBox shadow"></textarea>
-			    <button id="sendMessage" class="whiteBox shadow button far fa-comment"></button>
+			    <button id="sendMessage" class="shadow icon button far fa-comment"></button>
 		    	
 		    </p>
 		</form>
