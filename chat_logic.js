@@ -355,7 +355,11 @@ const addRoom = ()=>{
 	})
 	.then( response=> response.json() )
 	.then( addedRoom=> { moveRooms( addedRoom, roomName ) } )
-	.then( ()=>{switchRoomMenu()} )
+	.then( ()=>{
+		switchRoomMenu();
+		toggleAddRoomForm();
+		toggleAddRoomCancelButton();
+	} )
 	.catch( error=>{ console.log(error) } );
 }
 
