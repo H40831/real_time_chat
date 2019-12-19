@@ -12,9 +12,8 @@ $add_members = array_unique( $add_members );
 
 $adder = new MySql;
 $add_room_flg = !empty( filter_input(INPUT_POST,'room_name') );
-$add_member_flg = $add_members !== [""];
 
-$adding_members = [];
+$adding_members = [$_SESSION['user_id']];
 
 if( $add_room_flg ){
     $room_name = filter_input(INPUT_POST,'room_name');
@@ -23,10 +22,6 @@ if( $add_room_flg ){
         ':room_name', $room_name
     );
     $adding_room = (int)$adder->lastInsertId();
-
-    if( !$add_member_flg ){
-        array_unshift($adding_members, $_SESSION['user_id']);
-    }
 }
 
 forEach( $add_members as $i ){
@@ -53,6 +48,7 @@ if( !$add_room_flg ){
 forEach( $adding_members as $i ){
     try{
         $adder->sql( "INSERT talk_room_members VALUES({$i},{$adding_room});" );
+
     }catch (PDOException $err) {
         $response = ["error"];
         $err = $err->getMessage();
