@@ -43,15 +43,17 @@ const fitViewHeight = (isResize)=>{
 fitViewHeight(0);
 window.addEventListener('resize', ()=>{fitViewHeight(1)});
 
-const errorMessage = (message,positionTop,margin)=>{
+const errorMessage = function(parentNode,message,positionTop,margin){
 	if(document.getElementById('error')){ document.getElementById('error').remove() }
+	if(!arguments){return}
 
+	if(!errorMessage.arguments){return}
 	const error = document.createElement('p');
 	error.id="error";
 	error.className="chatMenu";
 	error.setAttribute('style',`top:${positionTop};margin:0 ${margin};`);
 	error.innerText=message;
-	body.appendChild(error);
+	parentNode.appendChild(error);
 }
 
 const showRooms = ()=>socket.emit('rooms',function(i){console.log(i)});
@@ -281,6 +283,7 @@ const switchRoomMenu = ()=>{
 }
 roomMenuButton.onclick = ()=> {
 	switchRoomMenu();
+	errorMessage();
 }
 loadInitialInfo()
 .then( ()=>{ switchRoomMenu() } );
@@ -366,7 +369,10 @@ const addRoom = ()=>{
 const toggleAddMemberForm = ()=>{
 	addMemberForm.classList.toggle('hide');
 }
-addMemberButton.onclick = ()=>{ toggleAddMemberForm() }
+addMemberButton.onclick = ()=>{ 
+	toggleAddMemberForm();
+	errorMessage();
+}
 addMemberArea.onkeydown = e=> {
 	if(e.keyCode===27){//esc
 		toggleAddMemberForm();
@@ -376,7 +382,7 @@ addMemberArea.onkeydown = e=> {
 const addMember = ()=>{
 	const addMembers = addMemberArea.value.split(",").filter(n=>n);
 	if( !addMembers.toString() ){
-		errorMessage('追加したいユーザーを指定してください。','7.25em','1em')
+		errorMessage(addMemberForm,'追加したいユーザーを指定してください。','7.25em','1em')
 		return; 
 	}
 
@@ -398,7 +404,7 @@ const addMember = ()=>{
 	})
 	.then( ()=>{ toggleAddMemberForm() } )
 	.then( ()=>{ addMemberArea.value = ""; } )
-	.catch( error=>{ errorMessage(error,'7.25em','1em') } );
+	.catch( error=>{ errorMessage(addMemberForm,error,'7.25em','1em') } );
 }
 
 addMemberSubmit.onclick = ()=>{addMember()}

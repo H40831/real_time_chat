@@ -13,8 +13,6 @@ $add_members = array_unique( $add_members );
 $adder = new MySql;
 $add_room_flg = !empty( filter_input(INPUT_POST,'room_name') );
 
-$adding_members = [$_SESSION['user_id']];
-
 if( $add_room_flg ){
     $room_name = filter_input(INPUT_POST,'room_name');
     $adder->sql(
@@ -22,6 +20,7 @@ if( $add_room_flg ){
         ':room_name', $room_name
     );
     $adding_room = (int)$adder->lastInsertId();
+    $adding_members = [$_SESSION['user_id']];
 }
 
 forEach( $add_members as $i ){
@@ -54,6 +53,7 @@ forEach( $adding_members as $i ){
         $err = $err->getMessage();
         if( strpos( $err,'SQLSTATE[23000]' )!==false ){
             $response[] = "既に存在するユーザーが指定されました。存在するユーザーのみ追加します。";
+            $response[] = $err;
         }else{
             $response[] = $err;
         }

@@ -118,12 +118,17 @@ button{
 		transform: translateX(0);
 	}
 }
-
+.hide #error{
+	opacity: 0;
+	pointer-events: none;
+}
 #error{
 	transition: top 0;
-	transition: bottom 0;
+	transition: left 0;
+	top: 0;
+	left: 0;
 	animation: shakeIn .6s;
-	position: absolute;
+	position: fixed;
 	z-index: 1;
 	color: red;
 	font-size: .8em;
