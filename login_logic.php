@@ -24,6 +24,7 @@ class Authentication extends MySql {
 	*4:パスワード不一致
 	*5:ID重複
 	*6:登録完了
+	*7:禁止文字が使用された
 	*/
 	private $result = 0;
 
@@ -68,6 +69,10 @@ class Authentication extends MySql {
 		if($this->isInputEmpty()){
 			return;
 		}
+		if( strpos($this->inputId,',') !== false ){
+    		$this->result = 7;
+    		return;
+    	}
 		
 		$this->userInfo = $this->sql(
 			'SELECT * FROM users WHERE login_id = :inputId;',

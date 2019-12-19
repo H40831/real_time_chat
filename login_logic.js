@@ -3,6 +3,7 @@ const loginFormData = ()=> new FormData(loginForm);
 
 const loginButton = document.getElementById('loginButton');
 const signupButton = document.getElementById('signupButton');
+const idForm = document.getElementById('id');
 const pwForm = document.getElementById('pw');
 const showPwButton = document.getElementById('showPwButton');
 
@@ -19,6 +20,7 @@ showPwButton.onclick = ()=>{
 	ToggleShowPwForm();
 	return false;
 }
+
 
 const exitLoginWindow = ()=>{
 	window.location.href = 'chat.php';
@@ -71,6 +73,9 @@ const setLoginFormMessage = (loginResult)=>{
 			break;
 		case 6:
 			message.innerText = '※ 新規登録しました。'; //正常であれば新規登録後すぐログイン処理へ移行するので、このメッセージは表示されない。
+			break;
+		case 7:
+			message.innerText = '※ IDに「,」を使用しないでください。'
 			break;
 		default:
 			message.innerText = loginResult;
