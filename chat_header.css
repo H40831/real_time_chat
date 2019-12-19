@@ -11,7 +11,8 @@
 	}
 }
 #headMenu{
-	position: relative;
+	position: absolute;
+	top: 0;
 	z-index: 1;
 	height: 2.5em;
 	display: flex;
@@ -74,7 +75,7 @@
     height: calc(100% - 3.25em);
     position: absolute;
     top: 2.5em;
-    z-index: 1;
+    z-index: 2;
     overflow: scroll;
 }
 #roomMenu.shadow{
@@ -93,7 +94,7 @@
 #roomMenuButton{
 	position: absolute;
 	top: calc(100% - 1.25em);
-	z-index: 2;
+	z-index: 3;
 	width: 90%;
 	margin: 0 5%;
 	text-align: center;
@@ -135,15 +136,17 @@
 	margin-bottom: .75em;
 	border-bottom: 1px solid #ddd;
 	font-weight: bold;
-	animation: fadeIn .2s;
 	display: flex;
-    align-items: center;
     justify-content: space-between;
+    line-height: 1.5;
 }
-#roomList li::-webkit-scrollbar {
+#roomList .room {
+	flex-grow: 1;
+}
+#roomList .room::-webkit-scrollbar {
 	display:none;
 }
-#roomList li .button{
+#roomList .exit{
 	padding: 0 .75em;
 }
 

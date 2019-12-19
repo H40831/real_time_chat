@@ -3,7 +3,7 @@ const socket = io.connect('ec2-52-195-2-97.ap-northeast-1.compute.amazonaws.com:
 const body = document.getElementsByTagName('body')[0];
 const roomMenu = document.getElementById('roomMenu');
 const roomMenuButton = document.getElementById('roomMenuButton');
-const rooms = ()=> (Array.from( document.getElementsByClassName('rooms') ));
+const room = ()=> (Array.from( document.getElementsByClassName('room') ));
 const roomList = document.getElementById('roomList');
 const roomName = document.getElementById('roomName');
 const addMemberButton = document.getElementById('addMemberButton');
@@ -20,9 +20,6 @@ const messageFormData = ()=> new FormData(messageForm);
 const messageArea = document.getElementById('messageArea');
 const nameArea = document.getElementById('nameArea');
 const sendMessageButton = document.getElementById('sendMessage');
-
-
-
 
 socket.on( 'notice' , notice=>{ console.log(notice) } );
 socket.on( 'getCurrentRoom' , ()=>{
@@ -45,6 +42,17 @@ const fitViewHeight = (isResize)=>{
 }
 fitViewHeight(0);
 window.addEventListener('resize', ()=>{fitViewHeight(1)});
+
+const errorMessage = (message,positionTop,margin)=>{
+	if(document.getElementById('error')){ document.getElementById('error').remove() }
+
+	const error = document.createElement('p');
+	error.id="error";
+	error.className="chatMenu";
+	error.setAttribute('style',`top:${positionTop};margin:0 ${margin};`);
+	error.innerText=message;
+	body.appendChild(error);
+}
 
 const showRooms = ()=>socket.emit('rooms',function(i){console.log(i)});
 
@@ -155,22 +163,35 @@ const reloadChatLogs = ()=>{
 socket.on( 'reload' , ()=>{ reloadChatLogs() });
 
 const moveRooms = ( roomId,roomName )=>{
-	console.log(`Room ID ${roomId}: ${roomName}に移動します。`)
-	window.currentRoom = roomId;
-	socket.emit( 'moveRooms', currentRoom );
-	window.roomName.innerText = roomName;
-	window.addMemberButton.classList.remove('hide');
 	const method = 'post';
 	const body = new FormData();
-	body.append('room_id',roomId);
+	if( roomId ){
+		console.log(`Room ID ${roomId}: ${roomName}に移動します。`)
+		body.append('room_id', roomId );
+		window.addMemberButton.classList.remove('hide');
+		window.roomName.innerText = roomName;
+		socket.emit( 'moveRooms', currentRoom );
+		window.currentRoom = roomId;
+	}else{
+		window.creentRoom = undefined;
+		window.roomName.innerText = "";
+		socket.emit( 'moveRooms' );
+		window.addMemberButton.classList.add('hide');
+	}
 	fetch('move_room.php',{
 		method,
 		body
 	})
 	.then( response=> response.json() )
-	.then( logs=> { loadChatLogs( logs ); } )
+	.then( logs=> {
+		if(logs[0]==="error"){
+			throw logs[1]
+		}else{
+			loadChatLogs( logs );
+		}
+	})
 	.then( ()=>{ logScrollBottom() } )
-	.catch( error=> { throw error; } );
+	.catch( error=> { console.log(error) } )
 }
 
 const loadRoomList = ()=>{
@@ -188,9 +209,11 @@ const addRoomList = ()=>{
 		responseData.forEach(
 			i=> {
 				const li = document.createElement('li');
-				li.dataset.room = i.room_id;
-				li.className = "rooms";
-				li.innerHTML = i.room_name;
+				const room = document.createElement('span');
+				room.dataset.room = i.room_id;
+				room.className = "room"
+				room.innerText = i.room_name;
+				li.appendChild(room);
 				const exitButton = document.createElement('button');
 				exitButton.dataset.room = i.room_id;
 				exitButton.className = "far fa-times-circle exit";
@@ -202,23 +225,39 @@ const addRoomList = ()=>{
 	.then( ()=>{ appendMoveRooms() } )
 }
 const appendMoveRooms = ()=>{
-	rooms().forEach(
+	room().forEach(
 		room=>{
+			const li = room.parentNode;
 			room.onclick = ()=>{
 				moveRooms( room.dataset.room, room.innerText );
 				switchRoomMenu();
 			};
-			const exitButton = room.getElementsByClassName('exit')[0];
+			const exitButton = li.getElementsByClassName('exit')[0];
 			exitButton.onclick = ()=>{
-				exitRoom( room.dataset.room );//次やる:exitRoom関数を作る
-				roomList.removeChild(room);
+				exitRoom( room.dataset.room );
+				li.classList.add('hide');
+				window.setTimeout(
+					()=>{ li.setAttribute('style','display:none;'); }
+					,200
+				)
 			}
 		}
 	);
 }
 
-const exitRoom = ( roomId ){
-	//
+const exitRoom = ( roomId )=>{//次やる:exitRoom関数を作る
+	const method = 'post';
+	const body = new FormData();
+	body.append('room_id',roomId);
+	fetch('exit_room.php',{
+		method, 
+		body
+	})
+	.then( response=> response.json() )
+	.then( ()=>{if(roomId===currentRoom){
+		moveRooms()
+	}})
+	.catch( error=>{ console.log(error) } );
 }
 
 
@@ -317,7 +356,7 @@ const addRoom = ()=>{
 	.then( response=> response.json() )
 	.then( addedRoom=> { moveRooms( addedRoom, roomName ) } )
 	.then( ()=>{switchRoomMenu()} )
-	.catch( error=>{ throw error } );
+	.catch( error=>{ console.log(error) } );
 }
 
 const toggleAddMemberForm = ()=>{
@@ -331,22 +370,31 @@ addMemberArea.onkeydown = e=> {
 }
 
 const addMember = ()=>{
-	if ( !addMemberArea.value ) { return; }
 	const addMembers = addMemberArea.value.split(",").filter(n=>n);
+	if( !addMembers.toString() ){
+		errorMessage('追加したいユーザーを指定してください。','7.25em','1em')
+		return; 
+	}
 
 	const method = 'post';
 	const body = new FormData();
 	body.append('add_members',JSON.stringify(addMembers));
 	console.log(...body.entries());//送信値チェック
-	addMemberArea.value = "";
 	fetch('add_room.php',{
 		method, 
 		body
 	})
 	.then( response=> response.json() )
-	.then( addedMember=> { console.log( addedMember ) } )
-	.then( ()=>{toggleAddMemberForm()} )
-	.catch( error=>{ throw error } );
+	.then( addedMember=> { 
+		if(addedMember[0]==="error"){
+			throw addedMember[1]
+		}else{
+			console.log(addedMember)
+		}
+	})
+	.then( ()=>{ toggleAddMemberForm() } )
+	.then( ()=>{ addMemberArea.value = ""; } )
+	.catch( error=>{ errorMessage(error,'7.25em','1em') } );
 }
 
 addMemberSubmit.onclick = ()=>{addMember()}

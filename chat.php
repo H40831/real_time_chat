@@ -32,7 +32,7 @@
     <script src="http://ec2-52-195-2-97.ap-northeast-1.compute.amazonaws.com:8080/socket.io/socket.io.js"></script>
     <script src="moment.js"></script>
 </head>
-<body>
+<body>asd
 	<header id="headMenu" class="chatMenu shadow nonActive">
 		<div class="row">
 			<span id="roomName"></span>
@@ -76,7 +76,7 @@
 		<form id="messageForm" class="chatMenu shadow nonActive">
 			<p class="row">
 				<span class="formName">Name</span>
-				<input id="nameArea" type="text" name="name" class="whiteBox shadow" pattern="[^,]">
+				<input id="nameArea" type="text" name="name" class="whiteBox shadow">
 			</p>
 			<p id="messageAreaRow" class="row">
 			    <textarea id="messageArea" name="message" class="whiteBox shadow"></textarea>

@@ -27,7 +27,7 @@ class MySql { #元ネタ→ https://www.geek.sc/archives/458
             return $this->data; #それを返り値にする。
 
         } catch (PDOException $err) {
-            echo $err->getMessage();
+            throw $err;
             exit();
         }
     }
@@ -56,7 +56,7 @@ class MySql { #元ネタ→ https://www.geek.sc/archives/458
             return $this->sql->fetchAll(PDO::FETCH_ASSOC); #クエリ結果を連想配列で取得して、それを返り値にする。
 
         } catch (PDOException $err) {
-            echo $err->getMessage();
+            throw $err;
             exit();
         }
     }

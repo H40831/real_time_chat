@@ -30,11 +30,15 @@ if( $add_room_flg ){
 }
 
 forEach( $add_members as $i ){
+
     $member_id = $adder->sql( "SELECT user_id FROM users WHERE login_id = :i;",
         ":i", $i
     );
     if( empty($member_id[0]) ){
-        trigger_error("ユーザーIDが {$i} の方を見つけられませんでした。");
+        $response = ["error"];
+        $response[] = "ユーザーIDが {$i} の方を見つけられませんでした。";
+        echo( json_encode($response) );
+        exit;
     }else{
         $adding_members[] = $member_id[0]['user_id'];
     }
@@ -49,9 +53,16 @@ if( !$add_room_flg ){
 forEach( $adding_members as $i ){
     try{
         $adder->sql( "INSERT talk_room_members VALUES({$i},{$adding_room});" );
-    }catch (Exception $err) {
-        echo $err->getMessage();
-        exit();
+    }catch (PDOException $err) {
+        $response = ["error"];
+        $err = $err->getMessage();
+        if( strpos( $err,'SQLSTATE[23000]' )!==false ){
+            $response[] = "既に存在するユーザーが指定されました。存在するユーザーのみ追加します。";
+        }else{
+            $response[] = $err;
+        }
+        echo( json_encode($response) );
+        exit;
     }
 }
 

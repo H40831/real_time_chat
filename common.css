@@ -50,15 +50,6 @@ button{
 	outline: none;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:initial;
-    }
-}
-
 .formName{
 	display: inline-block;
 	font-size: .5em;
@@ -106,4 +97,37 @@ button{
 .hide{
 	opacity: 0;
 	pointer-events: none;
+}
+@keyframes shakeIn {
+    0% {
+    	transform: translateX(0);
+    	opacity: 0;
+	}
+
+	12.5%,37.5%,62.5%,87.5% {
+		transform: translateX(-0.15%);
+	}
+
+	25%,50%,75% {
+		transform: translateX(0.15%);
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
+#error{
+	transition: top 0;
+	transition: bottom 0;
+	animation: shakeIn .6s;
+	position: absolute;
+	z-index: 1;
+	color: red;
+	font-size: .8em;
+	background-color: inherit;
+	padding-top: 0;
+	padding-bottom: 0;
 }

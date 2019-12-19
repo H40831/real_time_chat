@@ -8,6 +8,12 @@ error_reporting(-1);
 
 $room_id = filter_input(INPUT_POST,'room_id');
 
+if( empty($room_id) ){
+	$_SESSION['current_room'] = null;
+	echo( json_encode(["error","Exit Room."]) );
+	exit;
+}
+
 $roomInfoGetter = new MySql;
 $isJoiningRoom = $roomInfoGetter->sql(
 	"SELECT COUNT(*) FROM talk_rooms JOIN talk_room_members ON talk_rooms.room_id = talk_room_members.room_id WHERE user_id = :user_id AND talk_rooms.room_id = :room_id;",
@@ -39,7 +45,9 @@ if( $isJoiningRoom ){
 	}
 	echo ( json_encode($result) );
 }else{
+	$_SESSION['current_room'] = null;
 	error_log( "Unexpected behavior: user_id_{$_SESSION['user_id']} is trying access to not joined room. (tryed connect to room_id_{$room_id}.)" );
+	echo( json_encode(["error","Unexpected behavior: user_id_{$_SESSION['user_id']} is trying access to not joined room. (tryed connect to room_id_{$room_id}.)"]) );
 }
 
 
