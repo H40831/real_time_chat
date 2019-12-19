@@ -170,8 +170,8 @@ const moveRooms = ( roomId,roomName )=>{
 		body.append('room_id', roomId );
 		window.addMemberButton.classList.remove('hide');
 		window.roomName.innerText = roomName;
-		socket.emit( 'moveRooms', currentRoom );
 		window.currentRoom = roomId;
+		socket.emit( 'moveRooms', currentRoom );
 	}else{
 		window.creentRoom = undefined;
 		window.roomName.innerText = "";
