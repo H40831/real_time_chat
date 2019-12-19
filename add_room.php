@@ -22,7 +22,7 @@ if( $add_room_flg ){
         "INSERT talk_rooms VALUES (null, :room_name);",
         ':room_name', $room_name
     );
-    $adding_room = (int)$roomAdder->lastInsertId();
+    $adding_room = (int)$adder->lastInsertId();
 
     if( !$add_member_flg ){
         array_unshift($adding_members, $_SESSION['user_id']);
