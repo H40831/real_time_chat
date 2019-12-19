@@ -330,8 +330,8 @@ const toggleAddRoomCancelButton = ()=>{
 
 };
 addRoomButton.onclick = ()=> {
-			toggleAddRoomForm();
-			toggleAddRoomCancelButton();
+		toggleAddRoomForm();
+		toggleAddRoomCancelButton();
 };
 
 const addRoom = ()=>{
