@@ -20,6 +20,7 @@ const messageFormData = ()=> new FormData(messageForm);
 const messageArea = document.getElementById('messageArea');
 const nameArea = document.getElementById('nameArea');
 const sendMessageButton = document.getElementById('sendMessage');
+const landscape = ()=>(orientation!==0);
 
 socket.on( 'notice' , notice=>{ console.log(notice) } );
 socket.on( 'getCurrentRoom' , ()=>{
@@ -45,7 +46,7 @@ window.addEventListener('resize', ()=>{fitViewHeight(1)});
 
 const errorMessage = function(parentNode,message,positionTop,margin){
 	if(document.getElementById('error')){ document.getElementById('error').remove() }
-	if(!arguments){return}
+	if(!arguments.length){return}
 
 	if(!errorMessage.arguments){return}
 	const error = document.createElement('p');
@@ -93,12 +94,13 @@ const sendMessage = ()=> {
 	socket.json.emit('sendMessage', data );
 }
 messageForm.onsubmit = ()=> {
+	const errorPosition = landscape? "calc(100% - 2em);": "calc(100% - 3.5em);"; 
 	if(currentRoom && nameArea.value && messageArea.value){ 
 		sendMessage();
 		messageArea.value = '';
 		console.log('送信成功')
 	}else{
-		console.log('送信失敗')
+		errorMessage(messageForm,'名前と本文を入力してください。',errorPosition,'.5em');
 	}
 	return false;
 }
@@ -242,6 +244,9 @@ const appendMoveRooms = ()=>{
 					()=>{ li.setAttribute('style','display:none;'); }
 					,200
 				)
+				if( room.dataset.room == currentRoom ){
+					moveRooms();
+				}
 			}
 		}
 	);
@@ -357,7 +362,10 @@ const addRoom = ()=>{
 		body
 	})
 	.then( response=> response.json() )
-	.then( addedRoom=> { moveRooms( addedRoom, roomName ) } )
+	.then( addedRoom=> { 
+		if(addedRoom[0]==='error'){ errorMessage(headMenu,addedRoom[1],'3.5em',0) }
+		moveRooms( addedRoom, roomName );
+	} )
 	.then( ()=>{
 		switchRoomMenu();
 		toggleAddRoomForm();

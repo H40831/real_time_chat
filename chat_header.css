@@ -78,6 +78,12 @@
     z-index: 2;
     overflow: scroll;
 }
+@media screen and (orientation: landscape){
+	#roomMenu{
+		height: calc(100% - 4.25em);
+	}
+}
+
 #roomMenu.shadow{
 	box-shadow: rgba(0, 0, 0, 0.2) 0em 1em 1em -1em;
 }
@@ -94,6 +100,7 @@
 #roomMenuButton{
 	position: absolute;
 	top: calc(100% - 1.25em);
+	left: 0;
 	z-index: 3;
 	width: 90%;
 	margin: 0 5%;
@@ -122,6 +129,7 @@
 	#roomMenuButton{
 		width: 75%;
 		margin: 0 12.5%;
+		top: calc(100% - 2.25em);
 	}
 }
 #roomList br{

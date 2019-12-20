@@ -13,6 +13,8 @@ $add_members = array_unique( $add_members );
 $adder = new MySql;
 $add_room_flg = !empty( filter_input(INPUT_POST,'room_name') );
 
+$response = [];
+
 if( $add_room_flg ){
     $room_name = filter_input(INPUT_POST,'room_name');
     $adder->sql(
@@ -29,10 +31,8 @@ forEach( $add_members as $i ){
         ":i", $i
     );
     if( empty($member_id[0]) ){
-        $response = ["error"];
+        array_unshift($response,"error");
         $response[] = "ユーザーIDが {$i} の方を見つけられませんでした。存在するユーザーのみ追加します。";
-        echo( json_encode($response) );
-        exit;
     }else{
         $adding_members[] = $member_id[0]['user_id'];
     }
@@ -53,17 +53,16 @@ forEach( $adding_members as $i ){
         if( strpos( $err,'SQLSTATE[23000]' )===false ){
             //SQLSTATE[23000]は、複合ユニークキー違反のよう。既に追加されてるユーザーが追加されなくても問題ないため、エラーから除外する。
             header('HTTP/1.1 400 Bad Request');
-            $response = ["error"];
+            array_unshift($response,"error");
             $response[] = $err->getMessage();
-            echo( json_encode($response) );
-            exit;
         }
     }
 }
 
 if( $add_room_flg ){
-    echo ( json_encode($adding_room) );
+    $response[] = $adding_room;
 }else{
-    echo ( json_encode($added_members) );
+    $response[] = $added_members;
 }
 
+echo json_encode($response);

@@ -39,7 +39,7 @@
 			<button id="addMemberButton" class="hide shadow icon button fas fa-plus"></button>
 		</div>
 		<div class="buttons">
-			<button id="preferenceButton" class="shadow icon button fas fa-cog"></button>
+			<!-- <button id="preferenceButton" class="shadow icon button fas fa-cog"></button> -->
 			<button id="logoutButton" class="shadow icon button fas fa-sign-out-alt" onClick="location.href='logout.php'"></button>
 		</div>
 	</header>

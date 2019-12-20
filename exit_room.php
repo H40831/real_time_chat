@@ -15,7 +15,7 @@ try{
     ':room',$room,
     ':user',$user );
 
-    //部屋に誰もいなくなった場合、その部屋を削除する。
+    //部屋に誰もいなくなった場合、その部屋を削除する。//未検証
     $isEmptyRoom = $remover->sql(
         "SELECT count(*) FROM talk_rooms
         LEFT JOIN talk_room_members ON talk_rooms.room_id = talk_room_members.room_id
