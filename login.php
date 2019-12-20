@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	if (isset($_SESSION['user_id'])) {
-		header('Location: http://'.$_SERVER['HTTP_HOST'].'/chat.php');
+		header('Location: http://'.$_SERVER['HTTP_HOST'].'/chat');
         exit;
     }
     function css($paths){

@@ -4,7 +4,7 @@
 	error_reporting(-1);
 
 	if (!isset($_SESSION['user_id'])) {
-		header('Location: http://'.$_SERVER['HTTP_HOST'].'/login.php');
+		header('Location: http://'.$_SERVER['HTTP_HOST'].'/login');
 	    exit;
 	}
 
@@ -40,7 +40,7 @@
 		</div>
 		<div class="buttons">
 			<!-- <button id="preferenceButton" class="shadow icon button fas fa-cog"></button> -->
-			<button id="logoutButton" class="shadow icon button fas fa-sign-out-alt" onClick="location.href='logics/php/logout.php'"></button>
+			<button id="logoutButton" class="shadow icon button fas fa-sign-out-alt" onClick="location.href='logics/php/logout'"></button>
 		</div>
 	</header>
 	<button id="roomMenuButton"></button><!-- class属性の値はJavaScriptのroomMenuToggle()で管理 -->

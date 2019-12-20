@@ -22,7 +22,7 @@
 	position: relative;
 }
 #showPwButton{
-	display:none;
+	display: none;
 	transition: right 0s;
 	position: absolute;
 	right: 0;
@@ -31,11 +31,6 @@
 }
 #showPwButton.fa-eye{
 	right: 1px;
-}
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-	#showPwButton{
-		display: initial;
-	}  
 }
 
 #loginFormMessage{
