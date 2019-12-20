@@ -23,7 +23,7 @@ showPwButton.onclick = ()=>{
 
 
 const exitLoginWindow = ()=>{
-	window.location.href = 'chat.php';
+	window.location.href = 'chat';
 }
 
 const loginFormSubmit = ( loginOrSignup )=> {//loginOrSignup: 関数呼出の際、文字列で'login'か'signup'かを明示する。
