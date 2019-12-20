@@ -94,7 +94,10 @@ const sendMessage = ()=> {
 }
 messageForm.onsubmit = ()=> {
 	const errorPosition = landscape? "calc(100% - 2em);": "calc(100% - 3.5em);"; 
-	if(currentRoom && nameArea.value && messageArea.value){ 
+	if(!currentRoom){
+		errorMessage(messageForm,'チャットルームを選んでから発言してください。',errorPosition,'.5em');
+	}
+	if(nameArea.value && messageArea.value){ 
 		sendMessage();
 		messageArea.value = '';
 		console.log('送信成功')
