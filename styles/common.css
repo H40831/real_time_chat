@@ -131,12 +131,11 @@ button{
 	position: fixed;
 	z-index: 1;
 	color: red;
-	font-size: .8em;
 	background-color: initial;
 	padding-top: 0;
 	padding-bottom: 0;
 	height: 1.5em;
-	font-size: 6.5em;
+	font-size: .65em;
 }
 @media screen and (orientation: landscape){
 	#error{

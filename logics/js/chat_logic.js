@@ -288,6 +288,10 @@ const switchRoomMenu = ()=>{
 roomMenuButton.onclick = ()=> {
 	switchRoomMenu();
 	errorMessage();
+	if( addRoomForm.classList.contains('active') ){
+		toggleAddRoomForm();
+		toggleAddRoomCancelButton();
+	}
 }
 loadInitialInfo()
 .then( ()=>{ switchRoomMenu() } );
@@ -317,6 +321,7 @@ const toggleAddRoomCancelButton = ()=>{
 			addRoom();
 		}
 		window.addRoomCancelButton.onclick = ()=>{
+			errorMessage();
 			toggleAddRoomForm();
 			toggleAddRoomCancelButton();
 		}
@@ -342,10 +347,14 @@ addRoomButton.onclick = ()=> {
 };
 
 const addRoom = ()=>{
+	errorMessage();
 	console.log('ルームを作成します');
 	const roomName = roomNameArea.value;
 	if(!roomName){
-		console.log('送信失敗');
+		landscape() ? 
+			position = 'initial; bottom:7.5%':
+			position = 'initial; bottom:3.75%';
+		errorMessage( addRoomForm, "作成するルームの名前を決めてください。", position, '1.5em' );
 		return false;
 	}
 	const addMembers = roomMemberArea.value.split(",").filter(n=>n);
