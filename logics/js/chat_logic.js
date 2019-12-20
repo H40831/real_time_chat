@@ -19,7 +19,7 @@ const messageFormData = ()=> new FormData(messageForm);
 const messageArea = document.getElementById('messageArea');
 const nameArea = document.getElementById('nameArea');
 const sendMessageButton = document.getElementById('sendMessage');
-const landscape = ()=>(orientation!==0);
+const landscape = ()=>(window.innerHeight <= window.innerWidth);
 
 socket.on( 'notice' , notice=>{ console.log(notice) } );
 socket.on( 'getCurrentRoom' , ()=>{

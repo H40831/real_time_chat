@@ -13,6 +13,7 @@ $add_members = array_unique( $add_members );
 $adder = new MySql;
 $add_room_flg = !empty( filter_input(INPUT_POST,'room_name') );
 
+$adding_members = [];
 $response = [];
 
 if( $add_room_flg ){
