@@ -30,7 +30,7 @@ forEach( $add_members as $i ){
     );
     if( empty($member_id[0]) ){
         $response = ["error"];
-        $response[] = "ユーザーIDが {$i} の方を見つけられませんでした。";
+        $response[] = "ユーザーIDが {$i} の方を見つけられませんでした。存在するユーザーのみ追加します。";
         echo( json_encode($response) );
         exit;
     }else{
@@ -44,27 +44,26 @@ if( !$add_room_flg ){
     $adding_room = $_SESSION['current_room'];
 }
 
+$added_members=[];
 forEach( $adding_members as $i ){
     try{
         $adder->sql( "INSERT talk_room_members VALUES({$i},{$adding_room});" );
-
+        $added_members[]=$i;
     }catch (PDOException $err) {
-        $response = ["error"];
-        $err = $err->getMessage();
-        if( strpos( $err,'SQLSTATE[23000]' )!==false ){
-            $response[] = "既に存在するユーザーが指定されました。存在するユーザーのみ追加します。";
-            $response[] = $err;
-        }else{
-            $response[] = $err;
+        if( strpos( $err,'SQLSTATE[23000]' )===false ){
+            //SQLSTATE[23000]は、複合ユニークキー違反のよう。既に追加されてるユーザーが追加されなくても問題ないため、エラーから除外する。
+            header('HTTP/1.1 400 Bad Request');
+            $response = ["error"];
+            $response[] = $err->getMessage();
+            echo( json_encode($response) );
+            exit;
         }
-        echo( json_encode($response) );
-        exit;
     }
 }
 
 if( $add_room_flg ){
     echo ( json_encode($adding_room) );
 }else{
-    echo ( json_encode($adding_members) );
+    echo ( json_encode($added_members) );
 }
 
