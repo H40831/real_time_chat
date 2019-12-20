@@ -9,13 +9,13 @@
 	}
 
 	require_once __DIR__."/vendor/autoload.php";
-	require_once __DIR__."/db_access.php";
+	require_once __DIR__."/logics/php/db_access.php";
 
 	$roomMenuFlag = empty($_SESSION['current_room']) ? "hide" : "";//JavaScriptのswitchRoomMenu()が発動するため、この時点ではフラグが逆になる。
 
 	function css($paths){
     	forEach($paths as $path){
-    		echo "<link rel='stylesheet' type='text/css' href='$path'>";
+    		echo "<link rel='stylesheet' type='text/css' href='styles/{$path}'>";
     	}
     }
 ?>
@@ -30,7 +30,7 @@
 	<?php css(["ress.css","common.css","chat_header.css","chat_body.css"]); ?>
 	<!-- Font Awesome --> <script src="https://kit.fontawesome.com/2d2bcba3f8.js" crossorigin="anonymous"></script>
     <script src="http://ec2-52-195-2-97.ap-northeast-1.compute.amazonaws.com:8080/socket.io/socket.io.js"></script>
-    <script src="moment.js"></script>
+    <script src="logics/js/moment.js"></script>
 </head>
 <body>asd
 	<header id="headMenu" class="chatMenu shadow nonActive">
@@ -40,7 +40,7 @@
 		</div>
 		<div class="buttons">
 			<!-- <button id="preferenceButton" class="shadow icon button fas fa-cog"></button> -->
-			<button id="logoutButton" class="shadow icon button fas fa-sign-out-alt" onClick="location.href='logout.php'"></button>
+			<button id="logoutButton" class="shadow icon button fas fa-sign-out-alt" onClick="location.href='logics/php/logout.php'"></button>
 		</div>
 	</header>
 	<button id="roomMenuButton"></button><!-- class属性の値はJavaScriptのroomMenuToggle()で管理 -->
@@ -86,6 +86,6 @@
 		</form>
 
 	</section>
-	<script type="text/javascript" src="chat_logic.js"></script>
+	<script type="text/javascript" src="logics/js/chat_logic.js"></script>
 </body>
 </html>

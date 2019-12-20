@@ -1,13 +1,12 @@
 <?php
 	session_start();
-	#require_once __DIR__.'/main.php';
 	if (isset($_SESSION['user_id'])) {
 		header('Location: http://'.$_SERVER['HTTP_HOST'].'/chat.php');
         exit;
     }
     function css($paths){
     	forEach($paths as $path){
-    		echo "<link rel='stylesheet' type='text/css' href='$path'>";
+    		echo "<link rel='stylesheet' type='text/css' href='styles/{$path}'>";
     	}
     }
 ?>
@@ -45,6 +44,6 @@
 		</div>	
 	</section>
 
-	<script type="text/javascript" src="login_logic.js"></script>
+	<script type="text/javascript" src="logics/js/login_logic.js"></script>
 </body>
 </html>

@@ -61,7 +61,7 @@ const showRooms = ()=>socket.emit('rooms',function(i){console.log(i)});
 
 const loadInitialInfo = ()=> {//最下行で実行。
 	const method = 'post';
-	return fetch('logics/php/chat_onload.php',{
+	return fetch('chat_onload.php',{
 		method,
 	})
 	.then( response=> response.json() )
@@ -107,7 +107,7 @@ messageForm.onsubmit = ()=> {
 
 const pushLog = (who,message)=> {//未作成
 	const method = 'post';
-	fetch('logics/php/room_list.php',{
+	fetch('room_list.php',{
 		method,
 	})
 	.then( response=> response.json() )
@@ -155,7 +155,7 @@ const reloadChatLogs = ()=>{
 	const method = 'post';
 	const body = new FormData();
 	body.append('room_id',currentRoom);
-	fetch('logics/php/move_room.php',{
+	fetch('move_room.php',{
 		method,
 		body
 	})
@@ -182,7 +182,7 @@ const moveRooms = ( roomId,roomName )=>{
 		socket.emit( 'moveRooms' );
 		window.addMemberButton.classList.add('hide');
 	}
-	fetch('logics/php/move_room.php',{
+	fetch('move_room.php',{
 		method,
 		body
 	})
@@ -200,7 +200,7 @@ const moveRooms = ( roomId,roomName )=>{
 
 const loadRoomList = ()=>{
 	const method = 'post';
-	return fetch('logics/php/room_list.php',{
+	return fetch('room_list.php',{
 		method,
 	})
 	.then( response=> response.json() )
@@ -256,7 +256,7 @@ const exitRoom = ( roomId )=>{//次やる:exitRoom関数を作る
 	const method = 'post';
 	const body = new FormData();
 	body.append('room_id',roomId);
-	fetch('logics/php/exit_room.php',{
+	fetch('exit_room.php',{
 		method, 
 		body
 	})
@@ -357,7 +357,7 @@ const addRoom = ()=>{
 	console.log(...body.entries());//送信値チェック
 	roomNameArea.value = "";
 	roomMemberArea.value = "";
-	fetch('logics/php/add_room.php',{
+	fetch('add_room.php',{
 		method, 
 		body
 	})
@@ -398,7 +398,7 @@ const addMember = ()=>{
 	const body = new FormData();
 	body.append('add_members',JSON.stringify(addMembers));
 	console.log(...body.entries());//送信値チェック
-	fetch('logics/php/add_room.php',{
+	fetch('add_room.php',{
 		method, 
 		body
 	})
