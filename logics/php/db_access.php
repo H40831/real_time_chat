@@ -3,10 +3,10 @@
 ini_set('display_errors', 1);
 #error_reporting(-1);
 
-require_once __DIR__."/vendor/autoload.php";
+require_once __DIR__."/../../vendor/autoload.php";
 
-$dotenv = Dotenv\Dotenv::create(__DIR__);
-$dotenv->load();
+$dotenv = Dotenv\Dotenv::create(__DIR__."/../..");
+$dotenv->load(__DIR__."/../..");
 
 class MySql { #元ネタ→ https://www.geek.sc/archives/458
     public function __construct(){ #DBの接続の際に使う情報を定義

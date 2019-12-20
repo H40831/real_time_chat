@@ -1,4 +1,3 @@
-
 const socket = io.connect('ec2-52-195-2-97.ap-northeast-1.compute.amazonaws.com:8080');
 const body = document.getElementsByTagName('body')[0];
 const roomMenu = document.getElementById('roomMenu');
@@ -61,7 +60,7 @@ const showRooms = ()=>socket.emit('rooms',function(i){console.log(i)});
 
 const loadInitialInfo = ()=> {//最下行で実行。
 	const method = 'post';
-	return fetch('chat_onload.php',{
+	return fetch('logics/php/chat_onload.php',{
 		method,
 	})
 	.then( response=> response.json() )
@@ -107,7 +106,7 @@ messageForm.onsubmit = ()=> {
 
 const pushLog = (who,message)=> {//未作成
 	const method = 'post';
-	fetch('room_list.php',{
+	fetch('logics/php/room_list.php',{
 		method,
 	})
 	.then( response=> response.json() )
@@ -155,7 +154,7 @@ const reloadChatLogs = ()=>{
 	const method = 'post';
 	const body = new FormData();
 	body.append('room_id',currentRoom);
-	fetch('move_room.php',{
+	fetch('logics/php/move_room.php',{
 		method,
 		body
 	})
@@ -182,7 +181,7 @@ const moveRooms = ( roomId,roomName )=>{
 		socket.emit( 'moveRooms' );
 		window.addMemberButton.classList.add('hide');
 	}
-	fetch('move_room.php',{
+	fetch('logics/php/move_room.php',{
 		method,
 		body
 	})
@@ -200,7 +199,7 @@ const moveRooms = ( roomId,roomName )=>{
 
 const loadRoomList = ()=>{
 	const method = 'post';
-	return fetch('room_list.php',{
+	return fetch('logics/php/room_list.php',{
 		method,
 	})
 	.then( response=> response.json() )
@@ -256,7 +255,7 @@ const exitRoom = ( roomId )=>{//次やる:exitRoom関数を作る
 	const method = 'post';
 	const body = new FormData();
 	body.append('room_id',roomId);
-	fetch('exit_room.php',{
+	fetch('logics/php/exit_room.php',{
 		method, 
 		body
 	})
@@ -357,7 +356,7 @@ const addRoom = ()=>{
 	console.log(...body.entries());//送信値チェック
 	roomNameArea.value = "";
 	roomMemberArea.value = "";
-	fetch('add_room.php',{
+	fetch('logics/php/add_room.php',{
 		method, 
 		body
 	})
@@ -398,7 +397,7 @@ const addMember = ()=>{
 	const body = new FormData();
 	body.append('add_members',JSON.stringify(addMembers));
 	console.log(...body.entries());//送信値チェック
-	fetch('add_room.php',{
+	fetch('logics/php/add_room.php',{
 		method, 
 		body
 	})
